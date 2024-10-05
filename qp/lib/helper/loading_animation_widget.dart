@@ -7,5 +7,5 @@ Widget loadingAnimationWidget({
   Color? color,
   double? size,
 }) {
-  return Center(child: LoadingAnimationWidget.prograssiveDots(color: color ?? ColorName.primaryColor, size: size ?? 40));
+  return Center(child: LoadingAnimationWidget.progressiveDots(color: color ?? ColorName.primaryColor, size: size ?? 40));
 }

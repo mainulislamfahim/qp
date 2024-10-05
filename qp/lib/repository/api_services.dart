@@ -1,9 +1,8 @@
-
-import 'package:chatapp/repository/api_endpoint.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../helper/log_printer.dart';
+import 'api_endpoint.dart';
 
 abstract class IApiService {
   // Future<SignInModel> signIn(String email, String password);

@@ -1,6 +1,7 @@
-import 'package:chatapp/helper/sizedbox_extension.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:qp/helper/sizedbox_extension.dart';
 import 'app_text_style.dart';
 
 class TitleWithViewAllWidget extends StatelessWidget {

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../gen/colors.gen.dart';
 
 
+
 LinearGradient appLinearGradient() {
   return const LinearGradient(
     // begin: Alignment(0.00, -1.00),

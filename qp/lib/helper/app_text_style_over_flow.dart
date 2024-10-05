@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../gen/colors.gen.dart';
+
 
 class AppTextStyleOverFlow extends StatelessWidget {
   const AppTextStyleOverFlow({
