@@ -82,8 +82,8 @@ class ColorName {
   /// Color: #06F8F4
   static const Color pest = Color(0xFF06F8F4);
 
-  /// Color: #2575fc
-  static const Color primaryColor = Color(0xFF2575FC);
+  /// Color: #307777
+  static const Color primaryColor = Color(0xFF307777);
 
   /// Color: #F8F9C7
   static const Color start = Color(0xFFF8F9C7);
