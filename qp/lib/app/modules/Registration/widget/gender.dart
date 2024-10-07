@@ -2,14 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:group_radio_button/group_radio_button.dart';
-import 'package:qp/app/modules/Login/views/login_view.dart';
 import 'package:qp/app/modules/Registration/controllers/registration_controller.dart';
 import 'package:qp/app/modules/Registration/widget/email.dart';
 import 'package:qp/gen/colors.gen.dart';
 import 'package:qp/helper/app_text_style.dart';
 import 'package:qp/helper/global_button_without_gradient.dart';
+import 'package:qp/helper/log_printer.dart';
 import 'package:qp/helper/sizedbox_extension.dart';
 
 import '../../../../helper/appbar_title.dart';
@@ -56,8 +55,10 @@ class RegGender extends StatelessWidget {
                 groupValue: controller.verticalGroupValue.value,
                 horizontalAlignment: MainAxisAlignment.spaceAround,
                 activeColor: ColorName.primaryColor,
-                onChanged: (value) =>
-                    controller.verticalGroupValue.value = value ?? '',
+                onChanged: (value) {
+                  controller.updateSelectedGender(value ?? '');
+                  controller.gender();
+                },
                 items: controller.status,
                 textStyle: TextStyle(
                   fontSize: 16.sp,

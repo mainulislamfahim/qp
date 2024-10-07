@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:get/get.dart';
-import 'package:qp/app/modules/Login/views/login_view.dart';
 import 'package:qp/app/modules/Registration/widget/name.dart';
-import 'package:qp/app/modules/splash/views/splash_view.dart';
 import 'package:qp/gen/assets.gen.dart';
 import 'package:qp/gen/colors.gen.dart';
 import 'package:qp/helper/app_text_style.dart';

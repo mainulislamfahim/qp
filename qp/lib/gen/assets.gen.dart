@@ -12,6 +12,39 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/avatar.png
+  AssetGenImage get avatar => const AssetGenImage('assets/images/avatar.png');
+
+  /// File path: assets/images/bookmark.png
+  AssetGenImage get bookmark =>
+      const AssetGenImage('assets/images/bookmark.png');
+
+  /// File path: assets/images/cart.png
+  AssetGenImage get cart => const AssetGenImage('assets/images/cart.png');
+
+  /// File path: assets/images/chancal.png
+  AssetGenImage get chancal => const AssetGenImage('assets/images/chancal.png');
+
+  /// File path: assets/images/home.png
+  AssetGenImage get home => const AssetGenImage('assets/images/home.png');
+
+  /// File path: assets/images/image.png
+  AssetGenImage get image => const AssetGenImage('assets/images/image.png');
+
+  /// File path: assets/images/logoHome.png
+  AssetGenImage get logoHome =>
+      const AssetGenImage('assets/images/logoHome.png');
+
+  /// File path: assets/images/message.png
+  AssetGenImage get message => const AssetGenImage('assets/images/message.png');
+
+  /// File path: assets/images/notification.png
+  AssetGenImage get notification =>
+      const AssetGenImage('assets/images/notification.png');
+
+  /// File path: assets/images/people.png
+  AssetGenImage get people => const AssetGenImage('assets/images/people.png');
+
   /// File path: assets/images/qp_logo.svg
   String get qpLogo => 'assets/images/qp_logo.svg';
 
@@ -22,11 +55,26 @@ class $AssetsImagesGen {
   /// File path: assets/images/reg.png
   AssetGenImage get reg => const AssetGenImage('assets/images/reg.png');
 
-  /// File path: assets/images/rufus-4.5.exe
-  String get rufus45 => 'assets/images/rufus-4.5.exe';
+  /// File path: assets/images/video.png
+  AssetGenImage get video => const AssetGenImage('assets/images/video.png');
 
   /// List of all assets
-  List<dynamic> get values => [qpLogo, qpLogo1, reg, rufus45];
+  List<dynamic> get values => [
+        avatar,
+        bookmark,
+        cart,
+        chancal,
+        home,
+        image,
+        logoHome,
+        message,
+        notification,
+        people,
+        qpLogo,
+        qpLogo1,
+        reg,
+        video
+      ];
 }
 
 class Assets {

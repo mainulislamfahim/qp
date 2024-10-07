@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:qp/app/modules/Registration/widget/password.dart';
 import 'package:qp/helper/sizedbox_extension.dart';
 
@@ -10,13 +8,16 @@ import '../../../../gen/colors.gen.dart';
 import '../../../../helper/app_text_style.dart';
 import '../../../../helper/appbar_title.dart';
 import '../../../../helper/global_button_without_gradient.dart';
+import '../controllers/registration_controller.dart';
 
 class RegMobile extends StatelessWidget {
   const RegMobile({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<RegistrationController>();
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: ColorName.white,
       appBar: AppBar(
         backgroundColor: ColorName.white,
@@ -48,9 +49,11 @@ class RegMobile extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10),
             child: TextFormField(
+              controller: controller.phone,
               maxLength: 11, // adjust the length to accommodate the prefix text
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
+                hintText: 'Mobile Number',
                 prefixText: '+880', // set the prefix text
                 prefixStyle: const TextStyle(color: Colors.black), // set the prefix text color
                 suffixIcon: InkWell(

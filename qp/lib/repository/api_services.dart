@@ -1,53 +1,119 @@
+import 'dart:math';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-
-import '../helper/log_printer.dart';
+import 'package:qp/app/model/login/login_model.dart';
+import 'package:qp/app/model/post/post_model.dart';
+import 'package:qp/app/model/registration/gender_model.dart';
+import 'package:qp/app/model/registration/register_model.dart';
+import 'package:qp/helper/log_printer.dart';
+import '../services/authInterceptor.dart';
 import 'api_endpoint.dart';
 
 abstract class IApiService {
-  // Future<SignInModel> signIn(String email, String password);
-  // declare abstract functions
+  /// Register
+  Future<RegisterModel> register(
+    String firstName,
+    String lastName,
+    String email,
+    String phone,
+    String password,
+    String userRole,
+    String gender,
+    String day,
+    String month,
+    String year,
+  );
 
+  /// Login
+  Future<LoginModel> login(String email, String password); // Post
+
+  /// Post
+  Future<PostModel> post(String pageNo, String pageSize); // Post
+  /// Gender
+  Future<GenderModel> gender();
 }
 
 class ApiServices implements IApiService {
-  final Dio _dio = Dio(BaseOptions(
-    baseUrl: ApiEndpoint.baseUrl, // Replace with your actual API base URL
-    connectTimeout: const Duration(seconds: 5),
-    receiveTimeout: const Duration(seconds: 3),
-  ));
+  final Dio _dio;
+  ApiServices()
+      : _dio = Dio(BaseOptions(
+          validateStatus: (statusCode) {
+            if (statusCode == null) {
+              return false;
+            }
+            if (statusCode == 422 || statusCode == 400) {
+              // your http status code
+              return true;
+            } else {
+              return statusCode >= 200 && statusCode < 300;
+            }
+          },
+        )) {
+    _dio.interceptors.add(AuthInterceptor());
+  }
 
-  // @override
-  // Future<SignInModel> signIn(String email, String password) async {
-  //   final Map<String, dynamic> data = {
-  //     'email': email,
-  //     'password': password,
-  //   };
-  //   return _handleRequest<SignInModel>(
-  //       () => _dio.post(ApiEndpoint.login, data: data),
-  //       (dynamic data) => SignInModel.fromJson(data),
-  //       'Sign In');
-  // }
-  //
-  // @override
-  // Future<SignUpModel> signUp(
-  //     String username, String email, String password) async {
-  //   final Map<String, dynamic> data = {
-  //     'username': username,
-  //     'email': email,
-  //     'password': password,
-  //   };
-  //   return _handleRequest<SignUpModel>(
-  //       () => _dio.post(ApiEndpoint.register, data: data),
-  //       (dynamic data) => SignUpModel.fromJson(data),
-  //       'Register');
-  // }
-  //
-  // @override
-  // Future<AllUsers> getUsers() async {
-  //   return _handleRequest<AllUsers>(() => _dio.get(ApiEndpoint.allUser),
-  //       (dynamic data) => AllUsers.fromJson(data), 'Users');
-  // }
+  /// Register
+  @override
+  Future<RegisterModel> register(
+    String firstName,
+    String lastName,
+    String email,
+    String phone,
+    String password,
+    String userRole,
+    String gender,
+    String day,
+    String month,
+    String year,
+  ) async {
+    final Map<String, dynamic> data = {
+      'first_name': firstName,
+      'last_name': lastName,
+      'email': email,
+      'phone': phone,
+      'password': password,
+      'user_role': userRole,
+      'gender': gender,
+      'day': day,
+      'month': month,
+      'year': year,
+    };
+    return _handleRequest<RegisterModel>(
+        () => _dio.post(ApiEndpoint.register, data: data),
+        (dynamic data) => RegisterModel.fromJson(data),
+        'Registration');
+  }
+
+  /// Login
+  @override
+  Future<LoginModel> login(String email, String password) async {
+    final Map<String, dynamic> data = {
+      'email': email.toString(),
+      'password': password.toString(),
+    };
+    return _handleRequest<LoginModel>(
+        () => _dio.post(ApiEndpoint.login, data: data),
+        (dynamic data) => LoginModel.fromJson(data),
+        'Login');
+  }
+
+  /// Post
+  @override
+  Future<PostModel> post(String pageNo, String pageSize) async {
+    return _handleRequest(
+        () =>
+            _dio.post('${ApiEndpoint.post}?pageNo=$pageNo&pageSize=$pageSize'),
+        (dynamic data) => PostModel.fromJson(data),
+        'Posts');
+  }
+
+  /// Gender
+  @override
+  Future<GenderModel> gender() async {
+    return _handleRequest(() => _dio.get(ApiEndpoint.gender),
+        (dynamic data) => GenderModel.fromJson(data), 'Gender');
+  }
 }
 
 Future<T> _handleRequest<T>(Future<Response<dynamic>> Function() request,

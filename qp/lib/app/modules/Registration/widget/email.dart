@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:qp/app/modules/Registration/controllers/registration_controller.dart';
 import 'package:qp/app/modules/Registration/widget/mobile.dart';
 import 'package:qp/helper/sizedbox_extension.dart';
-
 import '../../../../gen/colors.gen.dart';
 import '../../../../helper/app_text_style.dart';
 import '../../../../helper/appbar_title.dart';
@@ -16,6 +14,7 @@ class RegEmail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<RegistrationController>();
     return Scaffold(
       backgroundColor: ColorName.white,
       appBar: AppBar(
@@ -48,18 +47,23 @@ class RegEmail extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10),
             child: TextFormField(
-              initialValue: 'Email address',
-              maxLength: 1,
+              controller: controller.email,
               decoration: InputDecoration(
+                hintText: 'Email address',
                 suffixIcon: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    controller.email.clear();
+                  },
                   child: const Icon(
                     Icons.cancel,
                     color: ColorName.gray410,
                   ),
                 ),
+                focusedBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: ColorName.primaryColor),
+                ),
                 enabledBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFF6200EE)),
+                  borderSide: BorderSide(color: ColorName.primaryColor),
                 ),
               ),
             ),

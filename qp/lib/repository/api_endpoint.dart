@@ -1,12 +1,15 @@
 class ApiEndpoint {
   ///  Base URL
-  static const String domailUrl = 'http://192.168.0.108:3000'; //  192.168.198.83
-  static const String baseUrl = '$domailUrl/api/users';
+  // static const String domailUrl = 'https://quantumpossibilities.eu:82'; //  192.168.198.83
+  static const String baseUrl = 'https://quantumpossibilities.eu:82';
 
   ///  Auth
-  static const String register = '$baseUrl/register'; // post
-  static const String login = '$baseUrl/signin'; // post
-  ///User
-  static const String allUser = baseUrl;
+  static const String register = '$baseUrl/api/signup'; // post
+  static const String login = '$baseUrl/api/login'; // post
 
+  /// Post
+  static const String post = '$baseUrl/api/get-all-users-posts'; // Post
+
+  /// Gender
+  static const String gender = '$baseUrl/api/gender'; // Post
 }

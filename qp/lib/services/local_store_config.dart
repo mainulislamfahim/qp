@@ -11,6 +11,20 @@ class HiveService {
     box = await Hive.openBox('appData');
   }
 
+  ///  token
+
+  static setToken(String token) {
+    box.put('token', token);
+  }
+
+  static getToken() {
+    return box.get('token');
+  }
+
+  static deleteToken() {
+    box.delete('token');
+  }
+
   /// User ID
   static setUserID(String id) {
     box.put('id', id);

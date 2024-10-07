@@ -10,7 +10,7 @@ import 'app/routes/app_pages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await _setupApp();
+  await setupApp();
   runApp(const MyApp());
 }
 
@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-Future<void> _setupApp() async {
+Future<void> setupApp() async {
   await HiveService.initHive();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 }
