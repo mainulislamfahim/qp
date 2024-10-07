@@ -31,6 +31,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/image.png
   AssetGenImage get image => const AssetGenImage('assets/images/image.png');
 
+  /// File path: assets/images/like.png
+  AssetGenImage get like => const AssetGenImage('assets/images/like.png');
+
   /// File path: assets/images/logoHome.png
   AssetGenImage get logoHome =>
       const AssetGenImage('assets/images/logoHome.png');
@@ -66,6 +69,7 @@ class $AssetsImagesGen {
         chancal,
         home,
         image,
+        like,
         logoHome,
         message,
         notification,

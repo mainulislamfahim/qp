@@ -1,11 +1,14 @@
 import 'package:get/get.dart';
 import 'package:qp/app/model/post/post_model.dart';
 import 'package:qp/helper/handleException.dart';
+import 'package:qp/helper/log_printer.dart';
 import 'package:qp/repository/api_services.dart';
 
 class HomeController extends GetxController {
   final apiService = ApiServices();
   final post = <Post>[].obs;
+  final postModel = PostModel().obs;
+
   var isHomeSelected = false.obs;
   var isVideoSelected = false.obs;
   var isPeopleSelected = false.obs;
@@ -19,6 +22,8 @@ class HomeController extends GetxController {
       final response = await apiService.post(pageNo, pageSize);
       if(response.status == 200) {
         post.value = response.posts!;
+        postModel.value = response;
+        Log.i(post.length);
       }
     } catch(e){
       handleException(e);
@@ -27,7 +32,7 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    posts(pageNo: '1', pageSize: '1');
+    posts(pageNo: '1', pageSize: '10');
     super.onInit();
   }
 

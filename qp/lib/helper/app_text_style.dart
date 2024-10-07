@@ -28,7 +28,7 @@ class AppTextStyle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text.tr,
-      textAlign: textAlign ?? TextAlign.center,
+      textAlign: textAlign ?? TextAlign.start,
       maxLines: maxLines,
       style: GoogleFonts.poppins(
           textStyle: TextStyle(

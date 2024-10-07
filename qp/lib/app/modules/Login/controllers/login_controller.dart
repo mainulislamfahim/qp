@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:qp/app/routes/app_pages.dart';
 import 'package:qp/helper/handleException.dart';
 import 'package:qp/helper/log_printer.dart';
@@ -20,7 +21,10 @@ class LoginController extends GetxController {
       final response = await apiService.login(email, password);
       if (response.status == 200) {
         HiveService.deleteToken();
-        HiveService.setToken(response.accessToken!);
+        await HiveService.setToken(response.accessToken!);
+        await HiveService.setUserID(response.user!.id!);
+        Log.w(response.accessToken);
+        Log.w(response.user!.id!);
         Get.snackbar('Login', response.message!);
         Get.offNamed(Routes.HOME);
       } else {

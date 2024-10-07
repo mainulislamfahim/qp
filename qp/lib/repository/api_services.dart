@@ -101,9 +101,9 @@ class ApiServices implements IApiService {
   /// Post
   @override
   Future<PostModel> post(String pageNo, String pageSize) async {
-    return _handleRequest(
+    return _handleRequest<PostModel>(
         () =>
-            _dio.post('${ApiEndpoint.post}?pageNo=$pageNo&pageSize=$pageSize'),
+            _dio.get('${ApiEndpoint.post}?pageNo=$pageNo&pageSize=$pageSize'),
         (dynamic data) => PostModel.fromJson(data),
         'Posts');
   }
@@ -122,7 +122,7 @@ Future<T> _handleRequest<T>(Future<Response<dynamic>> Function() request,
     final response = await request();
     // Log.i('Print Status Code');
     // Log.i(response.statusCode);
-    // Log.i(response.data);
+    Log.i(response.data);
     if (response.statusCode == 200 ||
         response.statusCode == 201 ||
         response.statusCode == 422) {
@@ -135,7 +135,7 @@ Future<T> _handleRequest<T>(Future<Response<dynamic>> Function() request,
           statusCode: response.statusCode!);
     }
   } catch (e) {
-    debugPrint("API HANDLER ERROR:  ${e.toString()}");
+    debugPrint("API HANDLER ERROR $apiName:  ${e.toString()}");
     throw ApiException('Failed to load data: $e', statusCode: 500);
   }
 }
