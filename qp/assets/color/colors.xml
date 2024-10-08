@@ -10,6 +10,8 @@
     <color name="onPrimary">#2575fc</color>
     <color name="amber">#FFBF00</color>
     <color name="pest">#06F8F4</color>
+    <color name="blue">#0000FF</color>
+    <color name="skyblue">#007FFF</color>
     <color name="primaryColor">#307777</color>
     <color name="bgColor">#F7F8FC</color>
     <color name="bgColorWhite">#ECECEC</color>

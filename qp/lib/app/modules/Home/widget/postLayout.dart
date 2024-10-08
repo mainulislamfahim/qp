@@ -11,6 +11,7 @@ import 'package:lorem_ipsum/lorem_ipsum.dart';
 import 'package:qp/app/model/post/post_model.dart';
 import 'package:qp/app/modules/Home/widget/comment_sheet.dart';
 import 'package:qp/helper/cached_network_image_builder.dart';
+import 'package:qp/helper/get_image_url.dart';
 import 'package:qp/helper/sizedbox_extension.dart';
 import 'package:qp/repository/api_endpoint.dart';
 import 'package:readmore/readmore.dart';
@@ -35,8 +36,7 @@ class PostLayout extends StatelessWidget {
           leading: ClipRRect(
             borderRadius: BorderRadius.circular(15.r),
             child: cachedImageHelper(
-              imgurl:
-                  'https://quantumpossibilities.eu:82/uploads/${posts.userId!.profilePic}',
+              imgurl: posts.userId!.profilePic!,
               imgHeight: 40.h,
               imgWidth: 40.w,
             ),
@@ -113,10 +113,9 @@ class PostLayout extends StatelessWidget {
                     return ClipRRect(
                       borderRadius: BorderRadius.circular(15.r),
                       child: cachedImageHelper(
-                        imgurl: posts.media![index].media!, // Use index here
-                        imgWidth: Get.width,
-                        imgHeight: 200.h
-                      ),
+                          imgurl: posts.media![index].media!, // Use index here
+                          imgWidth: Get.width,
+                          imgHeight: 200.h),
                     );
                   },
                 ).toList(), // Ensure it's a list of widgets

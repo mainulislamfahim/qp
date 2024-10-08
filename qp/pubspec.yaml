@@ -63,6 +63,8 @@ dependencies:
   shimmer: ^3.0.0
   flutter_reaction_button: ^3.0.0+3
   galleryimage: ^2.0.1
+  story_view: ^0.16.5
+  vs_story_designer: ^2.2.0
 
 
 dev_dependencies:

@@ -6,6 +6,7 @@ import 'package:qp/app/model/login/login_model.dart';
 import 'package:qp/app/model/post/post_model.dart';
 import 'package:qp/app/model/registration/gender_model.dart';
 import 'package:qp/app/model/registration/register_model.dart';
+import 'package:qp/app/model/story/story_get_model.dart';
 import 'package:qp/helper/log_printer.dart';
 import '../services/authInterceptor.dart';
 import 'api_endpoint.dart';
@@ -32,6 +33,9 @@ abstract class IApiService {
   Future<PostModel> post({required int pageNo, int? pageSize}); // Post
   /// Gender
   Future<GenderModel> gender();
+
+  /// Story
+  Future<StoryGetModel> storyGetList(); // Get
 }
 
 class ApiServices implements IApiService {
@@ -102,8 +106,7 @@ class ApiServices implements IApiService {
   @override
   Future<PostModel> post({required int pageNo, int? pageSize}) async {
     return _handleRequest<PostModel>(
-        () =>
-            _dio.get('${ApiEndpoint.post}?pageNo=$pageNo&pageSize=$pageSize'),
+        () => _dio.get('${ApiEndpoint.post}?pageNo=$pageNo&pageSize=$pageSize'),
         (dynamic data) => PostModel.fromJson(data),
         'Posts');
   }
@@ -114,6 +117,16 @@ class ApiServices implements IApiService {
     return _handleRequest(() => _dio.get(ApiEndpoint.gender),
         (dynamic data) => GenderModel.fromJson(data), 'Gender');
   }
+
+  /// Story
+  @override
+  Future<StoryGetModel> storyGetList() async {
+    return _handleRequest<StoryGetModel>(
+      () => _dio.get(ApiEndpoint.storyList),
+      (dynamic data) => StoryGetModel.fromJson(data),
+      'Get Story',
+    );
+  }
 }
 
 Future<T> _handleRequest<T>(Future<Response<dynamic>> Function() request,
@@ -122,7 +135,7 @@ Future<T> _handleRequest<T>(Future<Response<dynamic>> Function() request,
     final response = await request();
     // Log.i('Print Status Code');
     // Log.i(response.statusCode);
-    Log.i(response.data);
+    // Log.i(response.data);
     if (response.statusCode == 200 ||
         response.statusCode == 201 ||
         response.statusCode == 422) {

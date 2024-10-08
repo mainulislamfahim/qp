@@ -25,6 +25,9 @@ class ColorName {
   /// Color: #000000
   static const Color black = Color(0xFF000000);
 
+  /// Color: #0000FF
+  static const Color blue = Color(0xFF0000FF);
+
   /// MaterialColor:
   ///   50: #FFFDE5EA
   ///   100: #FFFBBFCB
@@ -84,6 +87,9 @@ class ColorName {
 
   /// Color: #307777
   static const Color primaryColor = Color(0xFF307777);
+
+  /// Color: #007FFF
+  static const Color skyblue = Color(0xFF007FFF);
 
   /// Color: #F8F9C7
   static const Color start = Color(0xFFF8F9C7);

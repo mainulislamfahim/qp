@@ -1,13 +1,18 @@
 import 'package:get/get.dart';
 import 'package:qp/app/model/post/post_model.dart';
+import 'package:qp/app/model/story/story_get_model.dart';
 import 'package:qp/helper/handleException.dart';
 import 'package:qp/helper/log_printer.dart';
 import 'package:qp/repository/api_services.dart';
+import 'package:story_view/controller/story_controller.dart';
 
 class HomeController extends GetxController {
   final apiService = ApiServices();
   final post = <Post>[].obs;
+  final storyList = <Result>[].obs;
+
   final postModel = PostModel().obs;
+  final StoryController storyController = StoryController();
   final currentPage = 0.obs;
   final pageSize = 10;
   final isEndPage = false.obs;
@@ -21,7 +26,7 @@ class HomeController extends GetxController {
   var isCartSelected = false.obs;
   var isBookmarkSelected = false.obs;
 
-
+  /// Fetch Posts
   Future<void> posts() async {
     if (isInitialize.value == 100) {
       isInitialize.value = 1;
@@ -54,9 +59,23 @@ class HomeController extends GetxController {
     }
   }
 
+  /// Fetch Stories
+  Future<void> getStory() async {
+    try{
+      final response = await apiService.storyGetList();
+      Log.w(response.results!.length);
+      if(response.status == 200) {
+        storyList.value = response.results!;
+      }
+    }catch(e){
+      handleException(e);
+    }
+  }
+
   @override
   void onInit() {
     posts();
+    getStory();
     super.onInit();
   }
 
