@@ -44,6 +44,7 @@ class HomeView extends GetView<HomeController> {
               const HomePostSection(),
               10.height,
               const Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   HomeSelfStory(),
                   Expanded(
@@ -56,7 +57,12 @@ class HomeView extends GetView<HomeController> {
                 paddingHorizontal: 0,
               ),
               10.height,
-              const SizedBox(height: 600, child: HomeUserPost())
+              Container(
+                constraints: BoxConstraints(
+                  minHeight: 600.h,
+                ),
+                child: const HomeUserPost(),
+              )
             ],
           ),
         ),

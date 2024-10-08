@@ -4,9 +4,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reaction_button/flutter_reaction_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lorem_ipsum/lorem_ipsum.dart';
 import 'package:qp/app/model/post/post_model.dart';
+import 'package:qp/app/modules/Home/widget/comment_sheet.dart';
 import 'package:qp/helper/cached_network_image_builder.dart';
 import 'package:qp/helper/sizedbox_extension.dart';
 import 'package:qp/repository/api_endpoint.dart';
@@ -19,19 +22,21 @@ import '../../../../helper/divider.dart';
 import '../../../../helper/iconWithTextButton.dart';
 
 class PostLayout extends StatelessWidget {
-  const PostLayout({super.key, required this.posts});
+  const PostLayout({super.key, required this.posts, this.item});
   final Post posts;
+  final int? item;
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ListTile(
+          contentPadding: EdgeInsets.zero,
           leading: ClipRRect(
             borderRadius: BorderRadius.circular(15.r),
             child: cachedImageHelper(
               imgurl:
-                  'https://quantumpossibilities.eu:82/api/get-all-users-posts?pageNo=1&pageSize=10/${posts.userId!.profilePic}',
+                  'https://quantumpossibilities.eu:82/uploads/${posts.userId!.profilePic}',
               imgHeight: 40.h,
               imgWidth: 40.w,
             ),
@@ -60,9 +65,9 @@ class PostLayout extends StatelessWidget {
             size: 20.r,
           ),
         ),
-        10.height,
+        5.height,
         ReadMoreText(
-          posts.description ?? loremIpsum(words: 150),
+          posts.description ?? '',
           textAlign: TextAlign.start,
           style: GoogleFonts.poppins(
             textStyle: TextStyle(
@@ -100,11 +105,23 @@ class PostLayout extends StatelessWidget {
           moreStyle: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
         ),
         8.height,
-        ClipRRect(
-            borderRadius: BorderRadius.circular(15.r),
-            child: Image.network(
-              'https://img.freepik.com/free-vector/halloween-background-flat-design_52683-43845.jpg?w=996&t=st=1728325944~exp=1728326544~hmac=650270a2299e90a4af9539bd3a12dd47191e42b9123c8fa4c73a85c9fef0b2a7',
-            )),
+        posts.media != null && posts.media!.isNotEmpty
+            ? Column(
+                children: List.generate(
+                  posts.media!.length,
+                  (index) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(15.r),
+                      child: cachedImageHelper(
+                        imgurl: posts.media![index].media!, // Use index here
+                        imgWidth: Get.width,
+                        imgHeight: 200.h
+                      ),
+                    );
+                  },
+                ).toList(), // Ensure it's a list of widgets
+              )
+            : const SizedBox.shrink(),
         10.height,
         Row(
           children: [
@@ -115,13 +132,13 @@ class PostLayout extends StatelessWidget {
             ),
             5.width,
             AppTextStyle(
-              text: 'You, Rakesh Shetty and 130 others',
+              text: '${posts.reactionCount} liked this post',
               fontSize: 11.sp,
               fontWeight: FontWeight.w500,
             ),
             const Spacer(),
             AppTextStyle(
-              text: '1 Comments',
+              text: '${posts.totalComments} Comments',
               fontSize: 11.sp,
               fontWeight: FontWeight.w500,
             ),
@@ -138,11 +155,17 @@ class PostLayout extends StatelessWidget {
               reactions: const <Reaction<String>>[
                 Reaction<String>(
                   value: 'like',
-                  icon: Icon(Icons.thumb_up_alt_rounded, color: Colors.blue,),
+                  icon: Icon(
+                    Icons.thumb_up_alt_rounded,
+                    color: Colors.blue,
+                  ),
                 ),
                 Reaction<String>(
                   value: 'love',
-                  icon: Icon(Icons.favorite, color: ColorName.crimsonRed,),
+                  icon: Icon(
+                    Icons.favorite,
+                    color: ColorName.crimsonRed,
+                  ),
                 ),
               ],
               selectedReaction: const Reaction<String>(
@@ -151,15 +174,24 @@ class PostLayout extends StatelessWidget {
               ),
               itemSize: const Size(25, 25),
             ),
-            IconWithTextButton(
-              icon: EvaIcons.messageSquare,
-              text: 'Like',
-              iconColor: ColorName.gray410,
-              fontSize: 14.sp,
+            GestureDetector(
+              onTap: () {
+                commentDialog(
+                    posts.comments!.length.toString(),
+                    '${posts.userId!.firstName} ${posts.userId!.lastName}',
+                    context,
+                    posts);
+              },
+              child: IconWithTextButton(
+                icon: EvaIcons.messageSquare,
+                text: 'Comment',
+                iconColor: ColorName.gray410,
+                fontSize: 14.sp,
+              ),
             ),
             IconWithTextButton(
               icon: EvaIcons.share,
-              text: 'Like',
+              text: 'Share',
               iconColor: ColorName.gray410,
               fontSize: 14.sp,
             )

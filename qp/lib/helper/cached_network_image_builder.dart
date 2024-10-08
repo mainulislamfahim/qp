@@ -6,6 +6,7 @@ import 'package:qp/gen/colors.gen.dart';
 import 'package:qp/helper/shimmer_loading.dart';
 
 import '../gen/assets.gen.dart';
+import 'get_image_url.dart';
 
 Widget cachedImageHelper({
   required String imgurl,
@@ -18,16 +19,13 @@ Widget cachedImageHelper({
   return ClipRRect(
     borderRadius: BorderRadius.circular(radius ?? 15.r),
     child: CachedNetworkImage(
-      imageUrl: imgurl, //GetImageUrl.url(imgurl),
+      imageUrl: GetImageUrl.url(imgurl),
       fit: BoxFit.fill,
       height: imgHeight ?? 100.h,
       width: imgWidth ?? 90.w,
       placeholder: (context, url) => shimmerLoadingWidget(
           height: imgHeight ?? shimmerHeight, width: imgWidth ?? shimmerWidth),
-      errorWidget: (context, url, error) => const Icon(
-        Icons.error,
-        color: ColorName.primaryColor,
-      ),
+      errorWidget: (context, url, error) => Image.asset(Assets.images.avatar.path, height: imgHeight,width: imgWidth,),
     ),
   );
 }

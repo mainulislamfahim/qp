@@ -13,14 +13,15 @@ class HomeOtherStory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200.h,
+      height: 180.h,
       width: Get.width - 120.w,
       child: ListView.builder(
+        padding: EdgeInsets.zero,
           scrollDirection: Axis.horizontal,
           itemCount: 3,
           itemBuilder: (_, item) {
             return Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(top: 8.0, left: 8),
               child: Stack(
                 children: [
                   ClipRRect(
@@ -33,17 +34,17 @@ class HomeOtherStory extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    left: 40.w,
+                    left: 38.w,
                     // right: 60.w,
-                    bottom: 20.h,
+                    bottom: 5.h,
                     child: GestureDetector(
                       onTap: () {},
                       child: Container(
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(
-                              color: ColorName.primaryColor,
-                              width: 1.5.w,
+                              color: ColorName.white,
+                              width: 2.w,
                             )),
                         child: CircleAvatar(
                           backgroundImage: AssetImage(

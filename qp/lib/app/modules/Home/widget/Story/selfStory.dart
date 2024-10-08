@@ -11,10 +11,10 @@ class HomeSelfStory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200.h,
-      width: 120.w,
+      height: 180.h,
+      width: 110.w,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(top: 8.0, left: 8),
         child: Stack(
           children: [
             ClipRRect(
@@ -27,9 +27,8 @@ class HomeSelfStory extends StatelessWidget {
               ),
             ),
             Positioned(
-              left: 40.w,
-              // right: 60.w,
-              bottom: 20.h,
+              left: 35.w,
+              bottom: 5.h,
               child: GestureDetector(
                 onTap: () {},
                 child: Container(

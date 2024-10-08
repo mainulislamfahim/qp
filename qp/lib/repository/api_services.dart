@@ -29,7 +29,7 @@ abstract class IApiService {
   Future<LoginModel> login(String email, String password); // Post
 
   /// Post
-  Future<PostModel> post(String pageNo, String pageSize); // Post
+  Future<PostModel> post({required int pageNo, int? pageSize}); // Post
   /// Gender
   Future<GenderModel> gender();
 }
@@ -100,7 +100,7 @@ class ApiServices implements IApiService {
 
   /// Post
   @override
-  Future<PostModel> post(String pageNo, String pageSize) async {
+  Future<PostModel> post({required int pageNo, int? pageSize}) async {
     return _handleRequest<PostModel>(
         () =>
             _dio.get('${ApiEndpoint.post}?pageNo=$pageNo&pageSize=$pageSize'),
