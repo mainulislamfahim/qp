@@ -63,7 +63,7 @@ class HomeController extends GetxController {
   Future<void> getStory() async {
     try{
       final response = await apiService.storyGetList();
-      Log.w(response.results!.length);
+      Log.i(response.results!.length);
       if(response.status == 200) {
         storyList.value = response.results!;
       }

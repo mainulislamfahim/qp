@@ -1,16 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:qp/app/model/story/story_get_model.dart';
 import 'package:qp/app/modules/Home/controllers/home_controller.dart';
 import 'package:qp/helper/cached_network_image_builder.dart';
 import 'package:qp/helper/get_image_url.dart';
 import 'package:qp/helper/log_printer.dart';
 import 'package:story_view/story_view.dart';
-
-import '../../../../../gen/assets.gen.dart';
 import '../../../../../gen/colors.gen.dart';
 
 class HomeOtherStory extends StatelessWidget {

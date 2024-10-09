@@ -25,8 +25,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/chancal.png
   AssetGenImage get chancal => const AssetGenImage('assets/images/chancal.png');
 
-  /// File path: assets/images/galary.png
-  AssetGenImage get galary => const AssetGenImage('assets/images/galary.png');
+  /// File path: assets/images/galaryImage.png
+  AssetGenImage get galaryImage =>
+      const AssetGenImage('assets/images/galaryImage.png');
 
   /// File path: assets/images/home.png
   AssetGenImage get home => const AssetGenImage('assets/images/home.png');
@@ -70,7 +71,7 @@ class $AssetsImagesGen {
         bookmark,
         cart,
         chancal,
-        galary,
+        galaryImage,
         home,
         image,
         like,

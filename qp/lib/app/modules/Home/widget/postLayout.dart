@@ -1,19 +1,15 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reaction_button/flutter_reaction_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lorem_ipsum/lorem_ipsum.dart';
 import 'package:qp/app/model/post/post_model.dart';
 import 'package:qp/app/modules/Home/widget/comment_sheet.dart';
 import 'package:qp/helper/cached_network_image_builder.dart';
-import 'package:qp/helper/get_image_url.dart';
+import 'package:qp/helper/format_time.dart';
 import 'package:qp/helper/sizedbox_extension.dart';
-import 'package:qp/repository/api_endpoint.dart';
 import 'package:readmore/readmore.dart';
 
 import '../../../../gen/assets.gen.dart';
@@ -50,7 +46,7 @@ class PostLayout extends StatelessWidget {
           subtitle: Row(
             children: [
               AppTextStyle(
-                  text: '${posts.createdAt!.hour.toString()} hour ago '),
+                  text: FormatTime.formatTimeAgo(posts.createdAt!)),
               3.width,
               Icon(
                 EvaIcons.globe,
@@ -84,21 +80,21 @@ class PostLayout extends StatelessWidget {
               regExp: RegExp(r'#([a-zA-Z0-9_]+)'),
               spanBuilder: ({required String text, TextStyle? textStyle}) =>
                   TextSpan(
-                text: text,
-                style: textStyle?.copyWith(color: Colors.blue),
-              ),
+                    text: text,
+                    style: textStyle?.copyWith(color: Colors.blue),
+                  ),
             ),
             Annotation(
               regExp: RegExp(r'<@(\d+)>'),
               spanBuilder: ({required String text, TextStyle? textStyle}) =>
                   TextSpan(
-                text: 'User123',
-                style: textStyle?.copyWith(color: Colors.green),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    // Handle tap, e.g., navigate to a user profile
-                  },
-              ),
+                    text: 'User123',
+                    style: textStyle?.copyWith(color: Colors.green),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        // Handle tap, e.g., navigate to a user profile
+                      },
+                  ),
             ),
             // Additional annotations for URLs...
           ],

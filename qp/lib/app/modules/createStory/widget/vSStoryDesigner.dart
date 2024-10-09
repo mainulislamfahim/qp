@@ -8,12 +8,7 @@ final String? media;
   Widget build(BuildContext context) {
     return VSStoryDesigner(
       centerText: "Start Creating Your Story",
-      // fontFamilyList: const [
-      //   FontType.abrilFatface,
-      //   FontType.alegreya,
-      //   FontType.typewriter
-      // ],
-      // middleBottomWidget: const SizedBox(),
+
       themeType: ThemeType
           .light, // OPTIONAL, Default ThemeType.dark
       galleryThumbnailQuality: 250,

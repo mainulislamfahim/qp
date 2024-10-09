@@ -51,7 +51,9 @@ class CreateStoryView extends GetView<CreateStoryController> {
           GestureDetector(
             onTap: () async {
               String? mediaPath = await controller.prepareImage();
-              Get.to(() => VSStoryDesignerView(media: mediaPath,));
+              Get.to(() => VSStoryDesignerView(
+                    media: mediaPath,
+                  ));
             },
             child: const CreateStoryLayout(
               colors: [Color(0xff40C9FF), Color(0xffE81CFF)],
@@ -112,7 +114,7 @@ class CreateStoryLayout extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                       )
                     : Image.asset(
-                        Assets.images.galary.path,
+                        Assets.images.galaryImage.path,
                         height: 50.h,
                         width: 50.w,
                       ),

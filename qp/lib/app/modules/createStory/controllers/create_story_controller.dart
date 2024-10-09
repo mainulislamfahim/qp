@@ -14,11 +14,9 @@ class CreateStoryController extends GetxController {
 
   Future<String?> prepareImage() async {
     ByteData? byteData;
-
     try {
       RenderRepaintBoundary? boundary = globalKey.currentContext
           ?.findRenderObject() as RenderRepaintBoundary?;
-
       ui.Image? image = await boundary?.toImage(pixelRatio: 4);
       byteData = (await image?.toByteData(format: ui.ImageByteFormat.png));
       Uint8List bytes = byteData!.buffer.asUint8List();
