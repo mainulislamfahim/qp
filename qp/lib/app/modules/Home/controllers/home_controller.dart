@@ -1,23 +1,37 @@
+import 'dart:async';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:chewie/chewie.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:qp/app/model/post/post_model.dart';
 import 'package:qp/app/model/story/story_get_model.dart';
+import 'package:qp/helper/get_image_url.dart';
 import 'package:qp/helper/handleException.dart';
 import 'package:qp/helper/log_printer.dart';
 import 'package:qp/repository/api_services.dart';
 import 'package:story_view/controller/story_controller.dart';
+import 'package:video_player/video_player.dart';
 
 class HomeController extends GetxController {
   final apiService = ApiServices();
   final post = <Post>[].obs;
   final storyList = <Result>[].obs;
 
+  final pages = 0.obs;
+
   final postModel = PostModel().obs;
   final StoryController storyController = StoryController();
   final currentPage = 0.obs;
-  final pageSize = 10;
+  final pageSize = 20;
   final isEndPage = false.obs;
   final isLoading = false.obs;
   final isInitialize = 100.obs;
+  VideoPlayerController? videoPlayerController;
+  ChewieController? chewieController;
+  final isVideoInitialized = false.obs;
 
   var isHomeSelected = false.obs;
   var isVideoSelected = false.obs;
@@ -31,10 +45,13 @@ class HomeController extends GetxController {
     if (isInitialize.value == 100) {
       isInitialize.value = 1;
     }
-    try{
+    try {
       isLoading.value = true;
-      final response = await apiService.post(pageNo: currentPage.value + 1, pageSize: pageSize,);
-      if(response.status == 200) {
+      final response = await apiService.post(
+        pageNo: currentPage.value + 1,
+        pageSize: pageSize,
+      );
+      if (response.status == 200) {
         if (currentPage.value == 0) {
           post.value = response.posts!;
         } else {
@@ -50,7 +67,7 @@ class HomeController extends GetxController {
           isInitialize.value = 0;
         }
       }
-    } catch(e){
+    } catch (e) {
       handleException(e);
       isLoading.value = false;
       if (isInitialize.value == 1) {
@@ -61,14 +78,33 @@ class HomeController extends GetxController {
 
   /// Fetch Stories
   Future<void> getStory() async {
-    try{
+    try {
       final response = await apiService.storyGetList();
       Log.i(response.results!.length);
-      if(response.status == 200) {
+      if (response.status == 200) {
         storyList.value = response.results!;
       }
-    }catch(e){
+    } catch (e) {
       handleException(e);
+    }
+  }
+
+  /// Video Initialize
+  void videoInitialize(String videoUrl) async {
+    try {
+      videoPlayerController = VideoPlayerController.networkUrl(
+          Uri.parse(GetImageUrl.url('posts/$videoUrl')));
+      await videoPlayerController?.initialize();
+      chewieController = ChewieController(
+        videoPlayerController: videoPlayerController!,
+        autoPlay: false,
+        looping: false,
+      );
+      isVideoInitialized.value =
+          true; // Notify that the video is ready to be played
+    } catch (e) {
+      print('Video initialization error: $e');
+      isVideoInitialized.value = false; // Handle error by setting it to false
     }
   }
 
@@ -79,4 +115,10 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
+  @override
+  void onClose() {
+    videoPlayerController?.dispose();
+    chewieController?.dispose();
+    super.onClose();
+  }
 }

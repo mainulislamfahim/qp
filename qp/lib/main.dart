@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
           primaryColor: Colors.green, // Set your desired primary color
           primarySwatch: Colors.green,
         ),
-        title: "ChatApp",
+        title: "QP",
         debugShowCheckedModeBanner: false,
         initialRoute:  AppPages.INITIAL,
         getPages: AppPages.routes,

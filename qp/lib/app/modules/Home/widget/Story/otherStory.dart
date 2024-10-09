@@ -80,8 +80,9 @@ class ViewStory extends StatelessWidget {
         controller: controller.storyController,
         storyItems: storyList.expand((story) {
           return List.generate(story.stories!.length, (item) {
+            Log.w('Story : ${story.stories!.length}');
             return StoryItem.inlineImage(
-              url: GetImageUrl.url(story.coverPic!,), // Assuming each story has a URL
+              url: GetImageUrl.url('story/${story.stories![item].media}'), // Assuming each story has a URL
               controller: controller.storyController,
               caption: Text(
                 story.firstName!, // Assuming each story has a title

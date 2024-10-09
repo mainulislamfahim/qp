@@ -14,7 +14,7 @@ handleException(dynamic error) {
     } else if (error.statusCode == 400) {
       Get.snackbar("Error", "Bad Request. Please try again later.");
     } else {
-      Get.snackbar("Error", "Failed to fetch products. Error: ${error.message}");
+      Get.snackbar("Error", "Failed");
     }
   } else if (error is SocketException) {
     Get.snackbar("Error", "No internet connection.");

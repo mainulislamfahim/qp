@@ -56,7 +56,7 @@ class RegistrationController extends GetxController {
           phone, password, userRole, gender, day, month, year);
       if (response.status == 200) {
         Get.snackbar('Register', response.message!);
-        Get.offNamed(Routes.HOME);
+        Get.offNamed(Routes.LOGIN);
       } else {
         Get.snackbar('Register', response.message!);
       }

@@ -1,6 +1,8 @@
+import 'package:chewie/chewie.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter_reaction_button/flutter_reaction_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -9,21 +11,30 @@ import 'package:qp/app/model/post/post_model.dart';
 import 'package:qp/app/modules/Home/widget/comment_sheet.dart';
 import 'package:qp/helper/cached_network_image_builder.dart';
 import 'package:qp/helper/format_time.dart';
+import 'package:qp/helper/loading_animation_widget.dart';
 import 'package:qp/helper/sizedbox_extension.dart';
+import 'package:readmore/readmore.dart' as an;
 import 'package:readmore/readmore.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../../../../gen/assets.gen.dart';
 import '../../../../gen/colors.gen.dart';
 import '../../../../helper/app_text_style.dart';
 import '../../../../helper/divider.dart';
+import '../../../../helper/get_image_url.dart';
 import '../../../../helper/iconWithTextButton.dart';
+import '../../../../helper/log_printer.dart';
+import '../controllers/home_controller.dart';
 
 class PostLayout extends StatelessWidget {
   const PostLayout({super.key, required this.posts, this.item});
+
   final Post posts;
   final int? item;
+
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(HomeController());
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -45,8 +56,7 @@ class PostLayout extends StatelessWidget {
           ),
           subtitle: Row(
             children: [
-              AppTextStyle(
-                  text: FormatTime.formatTimeAgo(posts.createdAt!)),
+              AppTextStyle(text: FormatTime.formatTimeAgo(posts.createdAt!)),
               3.width,
               Icon(
                 EvaIcons.globe,
@@ -76,25 +86,25 @@ class PostLayout extends StatelessWidget {
           trimLines: 5,
           colorClickableText: ColorName.primaryColor,
           annotations: [
-            Annotation(
+            an.Annotation(
               regExp: RegExp(r'#([a-zA-Z0-9_]+)'),
               spanBuilder: ({required String text, TextStyle? textStyle}) =>
                   TextSpan(
-                    text: text,
-                    style: textStyle?.copyWith(color: Colors.blue),
-                  ),
+                text: text,
+                style: textStyle?.copyWith(color: Colors.blue),
+              ),
             ),
-            Annotation(
+            an.Annotation(
               regExp: RegExp(r'<@(\d+)>'),
               spanBuilder: ({required String text, TextStyle? textStyle}) =>
                   TextSpan(
-                    text: 'User123',
-                    style: textStyle?.copyWith(color: Colors.green),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        // Handle tap, e.g., navigate to a user profile
-                      },
-                  ),
+                text: 'User123',
+                style: textStyle?.copyWith(color: Colors.green),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    // Handle tap, e.g., navigate to a user profile
+                  },
+              ),
             ),
             // Additional annotations for URLs...
           ],
@@ -106,13 +116,43 @@ class PostLayout extends StatelessWidget {
                 children: List.generate(
                   posts.media!.length,
                   (index) {
-                    return ClipRRect(
-                      borderRadius: BorderRadius.circular(15.r),
-                      child: cachedImageHelper(
-                          imgurl: posts.media![index].media!, // Use index here
-                          imgWidth: Get.width,
-                          imgHeight: 200.h),
-                    );
+                    Log.i(posts.media![index].media.toString().split('.').last);
+                    String media =
+                        posts.media![index].media.toString().split(".").last;
+
+                    if (media == 'pdf') {
+                      return SizedBox(
+                        height: 480.h,
+                        child: SfPdfViewer.network(
+                            canShowScrollHead: false,
+                            scrollDirection: PdfScrollDirection.horizontal,
+                            GetImageUrl.url(
+                                'posts/${posts.media![index].media}')),
+                      );
+                    } else if (media == 'mp4') {
+                      controller.videoInitialize(posts.media![index].media!);
+
+                      return Obx(() {
+                        if (controller.isVideoInitialized.value) {
+                          return AspectRatio(
+                            aspectRatio: 16 / 9,
+                            child: Chewie(
+                                controller: controller.chewieController!),
+                          );
+                        } else {
+                          return loadingAnimationWidget();
+                        }
+                      });
+                    } else {
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(15.r),
+                        child: cachedImageHelper(
+                            imgurl:
+                                'posts/${posts.media![index].media!}', // Use index here
+                            imgWidth: Get.width,
+                            imgHeight: 200.h),
+                      );
+                    }
                   },
                 ).toList(), // Ensure it's a list of widgets
               )
