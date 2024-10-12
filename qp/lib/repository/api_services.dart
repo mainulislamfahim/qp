@@ -7,6 +7,7 @@ import 'package:qp/app/model/post/post_model.dart';
 import 'package:qp/app/model/registration/gender_model.dart';
 import 'package:qp/app/model/registration/register_model.dart';
 import 'package:qp/app/model/story/story_get_model.dart';
+import 'package:qp/app/model/story/story_post_model.dart';
 import 'package:qp/helper/log_printer.dart';
 import '../services/authInterceptor.dart';
 import 'api_endpoint.dart';
@@ -36,6 +37,9 @@ abstract class IApiService {
 
   /// Story
   Future<StoryGetModel> storyGetList(); // Get
+
+  Future<StoryPostModel> storyPostList(
+      {required String title, String? image, String? privacy}); // Post
 }
 
 class ApiServices implements IApiService {
@@ -127,6 +131,25 @@ class ApiServices implements IApiService {
       'Get Story',
     );
   }
+
+  @override
+  Future<StoryPostModel> storyPostList(
+      {required String title, String? image, String? privacy}) async {
+    final data = FormData.fromMap({
+      'files': [
+        await MultipartFile.fromFile(image!,
+            filename: image.toString().split('/').last)
+      ],
+      'title': title,
+      'privacy': privacy,
+    });
+    // data.removeWhere((key, value) => value == null);
+    Log.w(data.toString());
+    return _handleRequest<StoryPostModel>(
+        () => _dio.post(ApiEndpoint.storyCreate, data: data),
+        (dynamic data) => StoryPostModel.fromJson(data),
+        'Story Create');
+  } // Get
 }
 
 Future<T> _handleRequest<T>(Future<Response<dynamic>> Function() request,
@@ -134,8 +157,10 @@ Future<T> _handleRequest<T>(Future<Response<dynamic>> Function() request,
   try {
     final response = await request();
     // Log.i('Print Status Code');
-    // Log.i(response.statusCode);
-    // Log.i(response.data);
+    Log.i(response.statusCode);
+    if(apiName == 'Posts') {
+      Log.i(response.data);
+    }
     if (response.statusCode == 200 ||
         response.statusCode == 201 ||
         response.statusCode == 422) {

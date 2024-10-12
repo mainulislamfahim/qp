@@ -61,15 +61,15 @@ Widget shimmerLoadingListHorizontalWidget({double? height, double? width}) {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: EdgeInsets.only(
-            top: 20.h,
-            left: 10.w,
-            right: 10.w,
-          ),
-          child: shimmerLoadingWidget(
-              height: 30.h, width: Get.width, borderRadius: 10.r),
-        ),
+        // Padding(
+        //   padding: EdgeInsets.only(
+        //     top: 20.h,
+        //     left: 10.w,
+        //     right: 10.w,
+        //   ),
+        //   child: shimmerLoadingWidget(
+        //       height: 30.h, width: Get.width, borderRadius: 10.r),
+        // ),
         Expanded(
           child: ListView.builder(
             itemCount: 6,

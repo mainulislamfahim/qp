@@ -32,6 +32,7 @@ class HomeController extends GetxController {
   VideoPlayerController? videoPlayerController;
   ChewieController? chewieController;
   final isVideoInitialized = false.obs;
+  var currentStoryIndex = 0.obs;
 
   var isHomeSelected = false.obs;
   var isVideoSelected = false.obs;
@@ -39,6 +40,24 @@ class HomeController extends GetxController {
   var isNotificationSelected = false.obs;
   var isCartSelected = false.obs;
   var isBookmarkSelected = false.obs;
+
+  // Method to show the next user's story
+  void showNextUserStory() {
+    if (currentStoryIndex.value < storyList.length - 1) {
+      currentStoryIndex.value++;
+    } else {
+      Get.back(); // Close the view if it's the last story
+    }
+  }
+
+  // Method to show the previous user's story
+  void showPreviousUserStory() {
+    if (currentStoryIndex.value > 0) {
+      currentStoryIndex.value--;
+    } else {
+      Get.back(); // Close the view if it's the first story
+    }
+  }
 
   /// Fetch Posts
   Future<void> posts() async {
@@ -77,17 +96,22 @@ class HomeController extends GetxController {
   }
 
   /// Fetch Stories
+  final isStoryLoading = true.obs;
   Future<void> getStory() async {
     try {
       final response = await apiService.storyGetList();
-      Log.i(response.results!.length);
+      isStoryLoading.value = false;
+
+      Log.d(response.results!.length);
       if (response.status == 200) {
         storyList.value = response.results!;
       }
     } catch (e) {
       handleException(e);
+      isStoryLoading.value = false;
     }
   }
+
 
   /// Video Initialize
   void videoInitialize(String videoUrl) async {

@@ -15,6 +15,7 @@ import 'package:qp/helper/loading_animation_widget.dart';
 import 'package:qp/helper/sizedbox_extension.dart';
 import 'package:readmore/readmore.dart' as an;
 import 'package:readmore/readmore.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../../../../gen/assets.gen.dart';
@@ -172,10 +173,21 @@ class PostLayout extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
             const Spacer(),
-            AppTextStyle(
-              text: '${posts.totalComments} Comments',
-              fontSize: 11.sp,
-              fontWeight: FontWeight.w500,
+            GestureDetector(
+              onTap: () {
+                posts.comments!.isEmpty
+                    ? const SizedBox.shrink()
+                    : commentDialog(
+                        posts.comments!.length.toString(),
+                        '${posts.comments![0].userId!.firstName!} Liked this post',
+                        context,
+                        posts);
+              },
+              child: AppTextStyle(
+                text: '${posts.totalComments} Comments',
+                fontSize: 11.sp,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ],
         ),
@@ -211,11 +223,13 @@ class PostLayout extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                commentDialog(
-                    posts.comments!.length.toString(),
-                    '${posts.userId!.firstName} ${posts.userId!.lastName}',
-                    context,
-                    posts);
+                posts.comments!.isEmpty
+                    ? const SizedBox.shrink()
+                    : commentDialog(
+                        posts.comments!.length.toString(),
+                        '${posts.comments![0].userId!.firstName!} Liked this post',
+                        context,
+                        posts);
               },
               child: IconWithTextButton(
                 icon: EvaIcons.messageSquare,
@@ -224,11 +238,16 @@ class PostLayout extends StatelessWidget {
                 fontSize: 14.sp,
               ),
             ),
-            IconWithTextButton(
-              icon: EvaIcons.share,
-              text: 'Share',
-              iconColor: ColorName.gray410,
-              fontSize: 14.sp,
+            GestureDetector(
+              onTap: () {
+                Share.share(posts.id!);
+              },
+              child: IconWithTextButton(
+                icon: EvaIcons.share,
+                text: 'Share',
+                iconColor: ColorName.gray410,
+                fontSize: 14.sp,
+              ),
             )
           ],
         ),

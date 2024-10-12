@@ -23,7 +23,7 @@ class AppReadMoreWidget extends StatelessWidget {
       style: GoogleFonts.poppins(
         textStyle: TextStyle(
           color: ColorName.black,
-          fontSize: 14.sp,
+          fontSize: 12.sp,
           fontWeight: FontWeight.normal,
         ),
       ),

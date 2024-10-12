@@ -1,4 +1,12 @@
+// To parse this JSON data, do
+//
+//     final storyGetModel = storyGetModelFromJson(jsonString);
+
 import 'dart:convert';
+
+StoryGetModel storyGetModelFromJson(String str) => StoryGetModel.fromJson(json.decode(str));
+
+String storyGetModelToJson(StoryGetModel data) => json.encode(data.toJson());
 
 class StoryGetModel {
   String? message;
@@ -22,10 +30,6 @@ class StoryGetModel {
         results: results ?? this.results,
       );
 
-  factory StoryGetModel.fromRawJson(String str) => StoryGetModel.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
   factory StoryGetModel.fromJson(Map<String, dynamic> json) => StoryGetModel(
     message: json["message"],
     status: json["status"],
@@ -39,72 +43,302 @@ class StoryGetModel {
   };
 }
 
-class ViewersList {
-  Result? userId;
-  String? username;
+class Result {
+  String? id;
   String? firstName;
   String? lastName;
-  String? profilePic;
-  dynamic status;
-  List<Reaction>? reactions;
+  String? username;
+  String? email;
+  String? emailPrivacy;
+  String? dateOfBirthShowType;
+  String? phone;
+  dynamic country;
+  bool? isProfileVerified;
+  String? password;
+  dynamic profilePic;
+  dynamic coverPic;
+  dynamic userStatus;
+  String? gender;
+  dynamic religion;
+  DateTime? dateOfBirth;
+  dynamic userBio;
+  dynamic passport;
+  DateTime? lastLogin;
+  dynamic user2FaStatus;
+  dynamic secondaryEmail;
+  dynamic recoveryEmail;
+  dynamic relationStatus;
+  dynamic homeTown;
+  dynamic birthPlace;
+  dynamic bloodGroup;
+  dynamic websites;
+  dynamic userNickname;
+  dynamic userAbout;
+  dynamic presentTown;
+  dynamic otp;
+  dynamic resetPasswordToken;
+  dynamic resetPasswordTokenExpires;
+  dynamic userRole;
+  dynamic lockProfile;
+  bool? turnOnEarningDashboard;
+  String? status;
+  dynamic inactivationNote;
+  String? ipAddress;
+  dynamic createdBy;
+  dynamic updateBy;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  int? v;
+  List<Story>? stories;
 
-  ViewersList({
-    this.userId,
-    this.username,
+  Result({
+    this.id,
     this.firstName,
     this.lastName,
+    this.username,
+    this.email,
+    this.emailPrivacy,
+    this.dateOfBirthShowType,
+    this.phone,
+    this.country,
+    this.isProfileVerified,
+    this.password,
     this.profilePic,
+    this.coverPic,
+    this.userStatus,
+    this.gender,
+    this.religion,
+    this.dateOfBirth,
+    this.userBio,
+    this.passport,
+    this.lastLogin,
+    this.user2FaStatus,
+    this.secondaryEmail,
+    this.recoveryEmail,
+    this.relationStatus,
+    this.homeTown,
+    this.birthPlace,
+    this.bloodGroup,
+    this.websites,
+    this.userNickname,
+    this.userAbout,
+    this.presentTown,
+    this.otp,
+    this.resetPasswordToken,
+    this.resetPasswordTokenExpires,
+    this.userRole,
+    this.lockProfile,
+    this.turnOnEarningDashboard,
     this.status,
-    this.reactions,
+    this.inactivationNote,
+    this.ipAddress,
+    this.createdBy,
+    this.updateBy,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
+    this.stories,
   });
 
-  ViewersList copyWith({
-    Result? userId,
-    String? username,
+  Result copyWith({
+    String? id,
     String? firstName,
     String? lastName,
-    String? profilePic,
-    dynamic status,
-    List<Reaction>? reactions,
+    String? username,
+    String? email,
+    String? emailPrivacy,
+    String? dateOfBirthShowType,
+    String? phone,
+    dynamic country,
+    bool? isProfileVerified,
+    String? password,
+    dynamic profilePic,
+    dynamic coverPic,
+    dynamic userStatus,
+    String? gender,
+    dynamic religion,
+    DateTime? dateOfBirth,
+    dynamic userBio,
+    dynamic passport,
+    DateTime? lastLogin,
+    dynamic user2FaStatus,
+    dynamic secondaryEmail,
+    dynamic recoveryEmail,
+    dynamic relationStatus,
+    dynamic homeTown,
+    dynamic birthPlace,
+    dynamic bloodGroup,
+    dynamic websites,
+    dynamic userNickname,
+    dynamic userAbout,
+    dynamic presentTown,
+    dynamic otp,
+    dynamic resetPasswordToken,
+    dynamic resetPasswordTokenExpires,
+    dynamic userRole,
+    dynamic lockProfile,
+    bool? turnOnEarningDashboard,
+    String? status,
+    dynamic inactivationNote,
+    String? ipAddress,
+    dynamic createdBy,
+    dynamic updateBy,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    int? v,
+    List<Story>? stories,
   }) =>
-      ViewersList(
-        userId: userId ?? this.userId,
-        username: username ?? this.username,
+      Result(
+        id: id ?? this.id,
         firstName: firstName ?? this.firstName,
         lastName: lastName ?? this.lastName,
+        username: username ?? this.username,
+        email: email ?? this.email,
+        emailPrivacy: emailPrivacy ?? this.emailPrivacy,
+        dateOfBirthShowType: dateOfBirthShowType ?? this.dateOfBirthShowType,
+        phone: phone ?? this.phone,
+        country: country ?? this.country,
+        isProfileVerified: isProfileVerified ?? this.isProfileVerified,
+        password: password ?? this.password,
         profilePic: profilePic ?? this.profilePic,
+        coverPic: coverPic ?? this.coverPic,
+        userStatus: userStatus ?? this.userStatus,
+        gender: gender ?? this.gender,
+        religion: religion ?? this.religion,
+        dateOfBirth: dateOfBirth ?? this.dateOfBirth,
+        userBio: userBio ?? this.userBio,
+        passport: passport ?? this.passport,
+        lastLogin: lastLogin ?? this.lastLogin,
+        user2FaStatus: user2FaStatus ?? this.user2FaStatus,
+        secondaryEmail: secondaryEmail ?? this.secondaryEmail,
+        recoveryEmail: recoveryEmail ?? this.recoveryEmail,
+        relationStatus: relationStatus ?? this.relationStatus,
+        homeTown: homeTown ?? this.homeTown,
+        birthPlace: birthPlace ?? this.birthPlace,
+        bloodGroup: bloodGroup ?? this.bloodGroup,
+        websites: websites ?? this.websites,
+        userNickname: userNickname ?? this.userNickname,
+        userAbout: userAbout ?? this.userAbout,
+        presentTown: presentTown ?? this.presentTown,
+        otp: otp ?? this.otp,
+        resetPasswordToken: resetPasswordToken ?? this.resetPasswordToken,
+        resetPasswordTokenExpires: resetPasswordTokenExpires ?? this.resetPasswordTokenExpires,
+        userRole: userRole ?? this.userRole,
+        lockProfile: lockProfile ?? this.lockProfile,
+        turnOnEarningDashboard: turnOnEarningDashboard ?? this.turnOnEarningDashboard,
         status: status ?? this.status,
-        reactions: reactions ?? this.reactions,
+        inactivationNote: inactivationNote ?? this.inactivationNote,
+        ipAddress: ipAddress ?? this.ipAddress,
+        createdBy: createdBy ?? this.createdBy,
+        updateBy: updateBy ?? this.updateBy,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+        v: v ?? this.v,
+        stories: stories ?? this.stories,
       );
 
-  factory ViewersList.fromRawJson(String str) => ViewersList.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory ViewersList.fromJson(Map<String, dynamic> json) => ViewersList(
-    userId: json["user_id"] == null ? null : Result.fromJson(json["user_id"]),
-    username: json["username"],
+  factory Result.fromJson(Map<String, dynamic> json) => Result(
+    id: json["_id"],
     firstName: json["first_name"],
     lastName: json["last_name"],
+    username: json["username"],
+    email: json["email"],
+    emailPrivacy: json["email_privacy"],
+    dateOfBirthShowType: json["date_of_birth_show_type"],
+    phone: json["phone"],
+    country: json["country"],
+    isProfileVerified: json["isProfileVerified"],
+    password: json["password"],
     profilePic: json["profile_pic"],
+    coverPic: json["cover_pic"],
+    userStatus: json["user_status"],
+    gender: json["gender"],
+    religion: json["religion"],
+    dateOfBirth: json["date_of_birth"] == null ? null : DateTime.parse(json["date_of_birth"]),
+    userBio: json["user_bio"],
+    passport: json["passport"],
+    lastLogin: json["last_login"] == null ? null : DateTime.parse(json["last_login"]),
+    user2FaStatus: json["user_2fa_status"],
+    secondaryEmail: json["secondary_email"],
+    recoveryEmail: json["recovery_email"],
+    relationStatus: json["relation_status"],
+    homeTown: json["home_town"],
+    birthPlace: json["birth_place"],
+    bloodGroup: json["blood_group"],
+    websites: json["websites"],
+    userNickname: json["user_nickname"],
+    userAbout: json["user_about"],
+    presentTown: json["present_town"],
+    otp: json["otp"],
+    resetPasswordToken: json["reset_password_token"],
+    resetPasswordTokenExpires: json["reset_password_token_expires"],
+    userRole: json["user_role"],
+    lockProfile: json["lock_profile"],
+    turnOnEarningDashboard: json["turn_on_earning_dashboard"],
     status: json["status"],
-    reactions: json["reactions"] == null ? [] : List<Reaction>.from(json["reactions"]!.map((x) => Reaction.fromJson(x))),
+    inactivationNote: json["inactivation_note"],
+    ipAddress: json["ip_address"],
+    createdBy: json["created_by"],
+    updateBy: json["update_by"],
+    createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
+    updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
+    v: json["__v"],
+    stories: json["stories"] == null ? [] : List<Story>.from(json["stories"]!.map((x) => Story.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
-    "user_id": userId?.toJson(),
-    "username": username,
+    "_id": id,
     "first_name": firstName,
     "last_name": lastName,
+    "username": username,
+    "email": email,
+    "email_privacy": emailPrivacy,
+    "date_of_birth_show_type": dateOfBirthShowType,
+    "phone": phone,
+    "country": country,
+    "isProfileVerified": isProfileVerified,
+    "password": password,
     "profile_pic": profilePic,
+    "cover_pic": coverPic,
+    "user_status": userStatus,
+    "gender": gender,
+    "religion": religion,
+    "date_of_birth": dateOfBirth?.toIso8601String(),
+    "user_bio": userBio,
+    "passport": passport,
+    "last_login": lastLogin?.toIso8601String(),
+    "user_2fa_status": user2FaStatus,
+    "secondary_email": secondaryEmail,
+    "recovery_email": recoveryEmail,
+    "relation_status": relationStatus,
+    "home_town": homeTown,
+    "birth_place": birthPlace,
+    "blood_group": bloodGroup,
+    "websites": websites,
+    "user_nickname": userNickname,
+    "user_about": userAbout,
+    "present_town": presentTown,
+    "otp": otp,
+    "reset_password_token": resetPasswordToken,
+    "reset_password_token_expires": resetPasswordTokenExpires,
+    "user_role": userRole,
+    "lock_profile": lockProfile,
+    "turn_on_earning_dashboard": turnOnEarningDashboard,
     "status": status,
-    "reactions": reactions == null ? [] : List<dynamic>.from(reactions!.map((x) => x.toJson())),
+    "inactivation_note": inactivationNote,
+    "ip_address": ipAddress,
+    "created_by": createdBy,
+    "update_by": updateBy,
+    "createdAt": createdAt?.toIso8601String(),
+    "updatedAt": updatedAt?.toIso8601String(),
+    "__v": v,
+    "stories": stories == null ? [] : List<dynamic>.from(stories!.map((x) => x.toJson())),
   };
 }
 
 class Story {
   String? id;
-  dynamic title;
+  String? title;
   dynamic color;
   dynamic textColor;
   dynamic fontFamily;
@@ -112,9 +346,9 @@ class Story {
   String? media;
   dynamic textPosition;
   dynamic textAlignment;
-  UserId? userId;
+  String? userId;
   dynamic privacyId;
-  Privacy? privacy;
+  String? privacy;
   dynamic status;
   dynamic locationId;
   dynamic feelingId;
@@ -128,7 +362,7 @@ class Story {
   int? v;
   String? storyId;
   int? viewersCount;
-  List<ViewersList>? viewersList;
+  List<dynamic>? viewersList;
 
   Story({
     this.id,
@@ -161,7 +395,7 @@ class Story {
 
   Story copyWith({
     String? id,
-    dynamic title,
+    String? title,
     dynamic color,
     dynamic textColor,
     dynamic fontFamily,
@@ -169,9 +403,9 @@ class Story {
     String? media,
     dynamic textPosition,
     dynamic textAlignment,
-    UserId? userId,
+    String? userId,
     dynamic privacyId,
-    Privacy? privacy,
+    String? privacy,
     dynamic status,
     dynamic locationId,
     dynamic feelingId,
@@ -185,7 +419,7 @@ class Story {
     int? v,
     String? storyId,
     int? viewersCount,
-    List<ViewersList>? viewersList,
+    List<dynamic>? viewersList,
   }) =>
       Story(
         id: id ?? this.id,
@@ -216,10 +450,6 @@ class Story {
         viewersList: viewersList ?? this.viewersList,
       );
 
-  factory Story.fromRawJson(String str) => Story.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
   factory Story.fromJson(Map<String, dynamic> json) => Story(
     id: json["_id"],
     title: json["title"],
@@ -230,9 +460,9 @@ class Story {
     media: json["media"],
     textPosition: json["text_position"],
     textAlignment: json["text_alignment"],
-    userId: userIdValues.map[json["user_id"]]!,
+    userId: json["user_id"],
     privacyId: json["privacy_id"],
-    privacy: privacyValues.map[json["privacy"]]!,
+    privacy: json["privacy"],
     status: json["status"],
     locationId: json["location_id"],
     feelingId: json["feeling_id"],
@@ -246,7 +476,7 @@ class Story {
     v: json["__v"],
     storyId: json["id"],
     viewersCount: json["viewersCount"],
-    viewersList: json["viewersList"] == null ? [] : List<ViewersList>.from(json["viewersList"]!.map((x) => ViewersList.fromJson(x))),
+    viewersList: json["viewersList"] == null ? [] : List<dynamic>.from(json["viewersList"]!.map((x) => x)),
   );
 
   Map<String, dynamic> toJson() => {
@@ -259,9 +489,9 @@ class Story {
     "media": media,
     "text_position": textPosition,
     "text_alignment": textAlignment,
-    "user_id": userIdValues.reverse[userId],
+    "user_id": userId,
     "privacy_id": privacyId,
-    "privacy": privacyValues.reverse[privacy],
+    "privacy": privacy,
     "status": status,
     "location_id": locationId,
     "feeling_id": feelingId,
@@ -275,380 +505,6 @@ class Story {
     "__v": v,
     "id": storyId,
     "viewersCount": viewersCount,
-    "viewersList": viewersList == null ? [] : List<dynamic>.from(viewersList!.map((x) => x.toJson())),
+    "viewersList": viewersList == null ? [] : List<dynamic>.from(viewersList!.map((x) => x)),
   };
-}
-
-class Result {
-  String? country;
-  dynamic websites;
-  String? userNickname;
-  String? userAbout;
-  int? otp;
-  String? lockProfile;
-  String? inactivationNote;
-  String? id;
-  String? firstName;
-  String? lastName;
-  String? username;
-  String? email;
-  String? phone;
-  String? password;
-  String? profilePic;
-  String? coverPic;
-  dynamic userStatus;
-  String? gender;
-  String? religion;
-  DateTime? dateOfBirth;
-  String? userBio;
-  dynamic language;
-  dynamic passport;
-  DateTime? lastLogin;
-  dynamic user2FaStatus;
-  dynamic secondaryEmail;
-  dynamic recoveryEmail;
-  String? relationStatus;
-  String? homeTown;
-  String? birthPlace;
-  dynamic bloodGroup;
-  String? resetPasswordToken;
-  String? resetPasswordTokenExpires;
-  dynamic userRole;
-  String? status;
-  String? ipAddress;
-  dynamic createdBy;
-  dynamic updateBy;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  int? v;
-  String? presentTown;
-  List<String>? emailList;
-  List<dynamic>? phoneList;
-  bool? turnOnEarningDashboard;
-  String? dateOfBirthShowType;
-  String? emailPrivacy;
-  bool? isProfileVerified;
-  List<Story>? stories;
-
-  Result({
-    this.country,
-    this.websites,
-    this.userNickname,
-    this.userAbout,
-    this.otp,
-    this.lockProfile,
-    this.inactivationNote,
-    this.id,
-    this.firstName,
-    this.lastName,
-    this.username,
-    this.email,
-    this.phone,
-    this.password,
-    this.profilePic,
-    this.coverPic,
-    this.userStatus,
-    this.gender,
-    this.religion,
-    this.dateOfBirth,
-    this.userBio,
-    this.language,
-    this.passport,
-    this.lastLogin,
-    this.user2FaStatus,
-    this.secondaryEmail,
-    this.recoveryEmail,
-    this.relationStatus,
-    this.homeTown,
-    this.birthPlace,
-    this.bloodGroup,
-    this.resetPasswordToken,
-    this.resetPasswordTokenExpires,
-    this.userRole,
-    this.status,
-    this.ipAddress,
-    this.createdBy,
-    this.updateBy,
-    this.createdAt,
-    this.updatedAt,
-    this.v,
-    this.presentTown,
-    this.emailList,
-    this.phoneList,
-    this.turnOnEarningDashboard,
-    this.dateOfBirthShowType,
-    this.emailPrivacy,
-    this.isProfileVerified,
-    this.stories,
-  });
-
-  Result copyWith({
-    String? country,
-    dynamic websites,
-    String? userNickname,
-    String? userAbout,
-    int? otp,
-    String? lockProfile,
-    String? inactivationNote,
-    String? id,
-    String? firstName,
-    String? lastName,
-    String? username,
-    String? email,
-    String? phone,
-    String? password,
-    String? profilePic,
-    String? coverPic,
-    dynamic userStatus,
-    String? gender,
-    String? religion,
-    DateTime? dateOfBirth,
-    String? userBio,
-    dynamic language,
-    dynamic passport,
-    DateTime? lastLogin,
-    dynamic user2FaStatus,
-    dynamic secondaryEmail,
-    dynamic recoveryEmail,
-    String? relationStatus,
-    String? homeTown,
-    String? birthPlace,
-    dynamic bloodGroup,
-    String? resetPasswordToken,
-    String? resetPasswordTokenExpires,
-    dynamic userRole,
-    String? status,
-    String? ipAddress,
-    dynamic createdBy,
-    dynamic updateBy,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-    int? v,
-    String? presentTown,
-    List<String>? emailList,
-    List<dynamic>? phoneList,
-    bool? turnOnEarningDashboard,
-    String? dateOfBirthShowType,
-    String? emailPrivacy,
-    bool? isProfileVerified,
-    List<Story>? stories,
-  }) =>
-      Result(
-        country: country ?? this.country,
-        websites: websites ?? this.websites,
-        userNickname: userNickname ?? this.userNickname,
-        userAbout: userAbout ?? this.userAbout,
-        otp: otp ?? this.otp,
-        lockProfile: lockProfile ?? this.lockProfile,
-        inactivationNote: inactivationNote ?? this.inactivationNote,
-        id: id ?? this.id,
-        firstName: firstName ?? this.firstName,
-        lastName: lastName ?? this.lastName,
-        username: username ?? this.username,
-        email: email ?? this.email,
-        phone: phone ?? this.phone,
-        password: password ?? this.password,
-        profilePic: profilePic ?? this.profilePic,
-        coverPic: coverPic ?? this.coverPic,
-        userStatus: userStatus ?? this.userStatus,
-        gender: gender ?? this.gender,
-        religion: religion ?? this.religion,
-        dateOfBirth: dateOfBirth ?? this.dateOfBirth,
-        userBio: userBio ?? this.userBio,
-        language: language ?? this.language,
-        passport: passport ?? this.passport,
-        lastLogin: lastLogin ?? this.lastLogin,
-        user2FaStatus: user2FaStatus ?? this.user2FaStatus,
-        secondaryEmail: secondaryEmail ?? this.secondaryEmail,
-        recoveryEmail: recoveryEmail ?? this.recoveryEmail,
-        relationStatus: relationStatus ?? this.relationStatus,
-        homeTown: homeTown ?? this.homeTown,
-        birthPlace: birthPlace ?? this.birthPlace,
-        bloodGroup: bloodGroup ?? this.bloodGroup,
-        resetPasswordToken: resetPasswordToken ?? this.resetPasswordToken,
-        resetPasswordTokenExpires: resetPasswordTokenExpires ?? this.resetPasswordTokenExpires,
-        userRole: userRole ?? this.userRole,
-        status: status ?? this.status,
-        ipAddress: ipAddress ?? this.ipAddress,
-        createdBy: createdBy ?? this.createdBy,
-        updateBy: updateBy ?? this.updateBy,
-        createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt,
-        v: v ?? this.v,
-        presentTown: presentTown ?? this.presentTown,
-        emailList: emailList ?? this.emailList,
-        phoneList: phoneList ?? this.phoneList,
-        turnOnEarningDashboard: turnOnEarningDashboard ?? this.turnOnEarningDashboard,
-        dateOfBirthShowType: dateOfBirthShowType ?? this.dateOfBirthShowType,
-        emailPrivacy: emailPrivacy ?? this.emailPrivacy,
-        isProfileVerified: isProfileVerified ?? this.isProfileVerified,
-        stories: stories ?? this.stories,
-      );
-
-  factory Result.fromRawJson(String str) => Result.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory Result.fromJson(Map<String, dynamic> json) => Result(
-    country: json["country"],
-    websites: json["websites"],
-    userNickname: json["user_nickname"],
-    userAbout: json["user_about"],
-    otp: json["otp"],
-    lockProfile: json["lock_profile"],
-    inactivationNote: json["inactivation_note"],
-    id: json["_id"],
-    firstName: json["first_name"],
-    lastName: json["last_name"],
-    username: json["username"],
-    email: json["email"],
-    phone: json["phone"],
-    password: json["password"],
-    profilePic: json["profile_pic"],
-    coverPic: json["cover_pic"],
-    userStatus: json["user_status"],
-    gender: json["gender"],
-    religion: json["religion"],
-    dateOfBirth: json["date_of_birth"] == null ? null : DateTime.parse(json["date_of_birth"]),
-    userBio: json["user_bio"],
-    language: json["language"],
-    passport: json["passport"],
-    lastLogin: json["last_login"] == null ? null : DateTime.parse(json["last_login"]),
-    user2FaStatus: json["user_2fa_status"],
-    secondaryEmail: json["secondary_email"],
-    recoveryEmail: json["recovery_email"],
-    relationStatus: json["relation_status"],
-    homeTown: json["home_town"],
-    birthPlace: json["birth_place"],
-    bloodGroup: json["blood_group"],
-    resetPasswordToken: json["reset_password_token"],
-    resetPasswordTokenExpires: json["reset_password_token_expires"],
-    userRole: json["user_role"],
-    status: json["status"],
-    ipAddress: json["ip_address"],
-    createdBy: json["created_by"],
-    updateBy: json["update_by"],
-    createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
-    updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
-    v: json["__v"],
-    presentTown: json["present_town"],
-    emailList: json["email_list"] == null ? [] : List<String>.from(json["email_list"]!.map((x) => x)),
-    phoneList: json["phone_list"] == null ? [] : List<dynamic>.from(json["phone_list"]!.map((x) => x)),
-    turnOnEarningDashboard: json["turn_on_earning_dashboard"],
-    dateOfBirthShowType: json["date_of_birth_show_type"],
-    emailPrivacy: json["email_privacy"],
-    isProfileVerified: json["isProfileVerified"],
-    stories: json["stories"] == null ? [] : List<Story>.from(json["stories"]!.map((x) => Story.fromJson(x))),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "country": country,
-    "websites": websites,
-    "user_nickname": userNickname,
-    "user_about": userAbout,
-    "otp": otp,
-    "lock_profile": lockProfile,
-    "inactivation_note": inactivationNote,
-    "_id": id,
-    "first_name": firstName,
-    "last_name": lastName,
-    "username": username,
-    "email": email,
-    "phone": phone,
-    "password": password,
-    "profile_pic": profilePic,
-    "cover_pic": coverPic,
-    "user_status": userStatus,
-    "gender": gender,
-    "religion": religion,
-    "date_of_birth": dateOfBirth?.toIso8601String(),
-    "user_bio": userBio,
-    "language": language,
-    "passport": passport,
-    "last_login": lastLogin?.toIso8601String(),
-    "user_2fa_status": user2FaStatus,
-    "secondary_email": secondaryEmail,
-    "recovery_email": recoveryEmail,
-    "relation_status": relationStatus,
-    "home_town": homeTown,
-    "birth_place": birthPlace,
-    "blood_group": bloodGroup,
-    "reset_password_token": resetPasswordToken,
-    "reset_password_token_expires": resetPasswordTokenExpires,
-    "user_role": userRole,
-    "status": status,
-    "ip_address": ipAddress,
-    "created_by": createdBy,
-    "update_by": updateBy,
-    "createdAt": createdAt?.toIso8601String(),
-    "updatedAt": updatedAt?.toIso8601String(),
-    "__v": v,
-    "present_town": presentTown,
-    "email_list": emailList == null ? [] : List<dynamic>.from(emailList!.map((x) => x)),
-    "phone_list": phoneList == null ? [] : List<dynamic>.from(phoneList!.map((x) => x)),
-    "turn_on_earning_dashboard": turnOnEarningDashboard,
-    "date_of_birth_show_type": dateOfBirthShowType,
-    "email_privacy": emailPrivacy,
-    "isProfileVerified": isProfileVerified,
-    "stories": stories == null ? [] : List<dynamic>.from(stories!.map((x) => x.toJson())),
-  };
-}
-
-class Reaction {
-  String? reactionType;
-
-  Reaction({
-    this.reactionType,
-  });
-
-  Reaction copyWith({
-    String? reactionType,
-  }) =>
-      Reaction(
-        reactionType: reactionType ?? this.reactionType,
-      );
-
-  factory Reaction.fromRawJson(String str) => Reaction.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory Reaction.fromJson(Map<String, dynamic> json) => Reaction(
-    reactionType: json["reaction_type"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "reaction_type": reactionType,
-  };
-}
-
-enum Privacy {
-  PUBLIC
-}
-
-final privacyValues = EnumValues({
-  "public": Privacy.PUBLIC
-});
-
-enum UserId {
-  THE_6515_FDBE7_B9_E6_B3_C211_B83_EE,
-  THE_6677_B3119_DA81001_D9_B53670,
-  THE_6700_F2_D1_FB6699_D08_E0_FFC96
-}
-
-final userIdValues = EnumValues({
-  "6515fdbe7b9e6b3c211b83ee": UserId.THE_6515_FDBE7_B9_E6_B3_C211_B83_EE,
-  "6677b3119da81001d9b53670": UserId.THE_6677_B3119_DA81001_D9_B53670,
-  "6700f2d1fb6699d08e0ffc96": UserId.THE_6700_F2_D1_FB6699_D08_E0_FFC96
-});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }

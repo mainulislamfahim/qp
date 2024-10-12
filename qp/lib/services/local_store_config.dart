@@ -25,6 +25,19 @@ class HiveService {
     box.delete('token');
   }
 
+  /// Refresh Token
+  static setRefreshToken(String refreshToken) {
+    box.put('refreshToken', refreshToken);
+  }
+
+  static getRefreshToken() {
+    return box.get('refreshToken');
+  }
+
+  static deleteRefreshToken() {
+    box.delete('refreshToken');
+  }
+
   /// User ID
   static setUserID(String id) {
     box.put('id', id);

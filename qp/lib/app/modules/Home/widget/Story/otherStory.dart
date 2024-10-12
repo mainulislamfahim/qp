@@ -3,9 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:qp/app/model/story/story_get_model.dart';
 import 'package:qp/app/modules/Home/controllers/home_controller.dart';
+import 'package:qp/gen/assets.gen.dart';
 import 'package:qp/helper/cached_network_image_builder.dart';
 import 'package:qp/helper/get_image_url.dart';
 import 'package:qp/helper/log_printer.dart';
+import 'package:qp/helper/shimmer_loading.dart';
 import 'package:story_view/story_view.dart';
 import '../../../../../gen/colors.gen.dart';
 
@@ -24,44 +26,56 @@ class HomeOtherStory extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: controller.storyList.length,
             itemBuilder: (_, item) {
-              Log.w(controller.storyList.length);
               final Result story = controller.storyList[item];
-              return InkWell(
-                onTap: () {
-                  Get.to(() =>
-                      ViewStory(storyList: controller
-                          .storyList)); // Pass the story list
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8.0, left: 8),
-                  child: Stack(
-                    children: [
-                      // Placeholder for image
-                      SizedBox(
-                        height: 150.h,
-                        width: 100.w,
-                        child: cachedImageHelper(imgurl: story.coverPic!,),
-                      ),
-                      Positioned(
-                        left: 38.w,
-                        bottom: 5.h,
-                        child: GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: ColorName.blue,
-                                  width: 2.w,
-                                )),
-                            child: circularImage(imgUrl: story.profilePic!),
+              if (!controller.isStoryLoading.value) {
+                return InkWell(
+                  onTap: () {
+                    Get.to(() => ViewStory(
+                        storyList:
+                            controller.storyList)); // Pass the story list
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0, left: 8),
+                    child: Stack(
+                      children: [
+                        // Placeholder for image
+                        SizedBox(
+                          height: 150.h,
+                          width: 100.w,
+                          child: cachedImageHelper(
+                              imgurl: "story/${story.stories![0].media!}"),
+                        ),
+                        Positioned(
+                          left: 34.w,
+                          bottom: 5.h,
+                          child: GestureDetector(
+                            onTap: () {},
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: ColorName.blue,
+                                    width: 2.w,
+                                  )),
+                              child: cachedImageHelper(
+                                  imgHeight: 30.h,
+                                  imgWidth: 30.w,
+                                  imgurl: story.profilePic == null
+                                      ? 'https://imgv3.fotor.com/images/blog-cover-image/10-profile-picture-ideas-to-make-you-stand-out.jpg'
+                                      : 'story/${story.profilePic!}'),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              );
+                );
+              } else {
+                return shimmerLoadingListHorizontalWidget(
+                  height: 120.h,
+                  width: 100.w,
+                );
+              }
             });
       }),
     );
@@ -76,16 +90,28 @@ class ViewStory extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(HomeController());
     return Scaffold(
-      body: StoryView(
-        controller: controller.storyController,
-        storyItems: storyList.expand((story) {
-          return List.generate(story.stories!.length, (item) {
-            Log.w('Story : ${story.stories!.length}');
+      body: Obx(() {
+        final currentStory = storyList[controller.currentStoryIndex.value];
+        return StoryView(
+          controller: controller.storyController,
+          onVerticalSwipeComplete: (Direction? direction) {
+            if (direction == Direction.right) {
+              controller.showNextUserStory(); // Move to the next user story
+              Log.e(controller.currentStoryIndex.value);
+            } else if (direction == Direction.up) {
+              controller.showPreviousUserStory(); // Move to the previous user story
+              Log.e(controller.currentStoryIndex.value);
+
+            }
+          },
+          storyItems: currentStory.stories!.map((story) {
             return StoryItem.inlineImage(
-              url: GetImageUrl.url('story/${story.stories![item].media}'), // Assuming each story has a URL
+              url: story.media == 'null'
+                  ? 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png'
+                  : GetImageUrl.url('story/${story.media}'),
               controller: controller.storyController,
               caption: Text(
-                story.firstName!, // Assuming each story has a title
+                story.title!,
                 style: const TextStyle(
                   color: Colors.white,
                   backgroundColor: Colors.black54,
@@ -93,10 +119,9 @@ class ViewStory extends StatelessWidget {
                 ),
               ),
             );
-          });
-        }).toList(), // `expand` flattens the list of lists into a single list
-      ),
-
+          }).toList(), // Convert stories to storyItems for current user
+        );
+      }),
     );
   }
 }

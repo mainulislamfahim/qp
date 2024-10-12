@@ -21,10 +21,10 @@ class LoginController extends GetxController {
       final response = await apiService.login(email, password);
       if (response.status == 200) {
         HiveService.deleteToken();
+        HiveService.deleteRefreshToken();
         await HiveService.setToken(response.accessToken!);
+        await HiveService.setRefreshToken(response.refreshToken!);
         await HiveService.setUserID(response.user!.id!);
-        Log.w(response.accessToken);
-        Log.w(response.user!.id!);
         Get.snackbar('Login', response.message!);
         Get.offNamed(Routes.HOME);
       } else {
@@ -34,4 +34,5 @@ class LoginController extends GetxController {
       handleException(e);
     }
   }
+
 }
