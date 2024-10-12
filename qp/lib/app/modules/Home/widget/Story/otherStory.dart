@@ -21,107 +21,117 @@ class HomeOtherStory extends StatelessWidget {
       height: 180.h,
       width: Get.width - 120.w,
       child: Obx(() {
-        return ListView.builder(
-            padding: EdgeInsets.zero,
-            scrollDirection: Axis.horizontal,
-            itemCount: controller.storyList.length,
-            itemBuilder: (_, item) {
-              final Result story = controller.storyList[item];
-              if (!controller.isStoryLoading.value) {
-                return InkWell(
-                  onTap: () {
-                    Get.to(() => ViewStory(
-                        storyList:
-                            controller.storyList)); // Pass the story list
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 8.0, left: 8),
-                    child: Stack(
-                      children: [
-                        // Placeholder for image
-                        SizedBox(
-                          height: 150.h,
-                          width: 100.w,
-                          child: cachedImageHelper(
-                              imgurl: "story/${story.stories![0].media!}"),
-                        ),
-                        Positioned(
-                          left: 34.w,
-                          bottom: 5.h,
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: ColorName.blue,
-                                    width: 2.w,
-                                  )),
+        if (controller.isStoryLoading.value) {
+          return shimmerLoadingListHorizontalWidget(
+            height: 120.h,
+            width: 100.w,
+          );
+        } else {
+          return ListView.builder(
+              padding: EdgeInsets.zero,
+              scrollDirection: Axis.horizontal,
+              itemCount: controller.storyList.length,
+              itemBuilder: (_, item) {
+                final Result story = controller.storyList[item];
+                if (!controller.isStoryLoading.value) {
+                  return InkWell(
+                    onTap: () {
+                      Get.to(() => ViewStory(
+                          storyList:
+                              story)); // Pass the story list
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8.0, left: 8),
+                      child: Stack(
+                        children: [
+                          // Placeholder for image
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15.r),
+                                border: Border.all(color: ColorName.gray410)),
+                            child: SizedBox(
+                              height: 150.h,
+                              width: 100.w,
                               child: cachedImageHelper(
-                                  imgHeight: 30.h,
-                                  imgWidth: 30.w,
-                                  imgurl: story.profilePic == null
-                                      ? 'https://imgv3.fotor.com/images/blog-cover-image/10-profile-picture-ideas-to-make-you-stand-out.jpg'
-                                      : 'story/${story.profilePic!}'),
+                                  imgurl: "story/${story.stories![0].media!}"),
                             ),
                           ),
-                        ),
-                      ],
+                          Positioned(
+                            left: 34.w,
+                            bottom: 5.h,
+                            child: GestureDetector(
+                              onTap: () {},
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: ColorName.blue,
+                                      width: 2.w,
+                                    )),
+                                child: cachedImageHelper(
+                                    imgHeight: 30.h,
+                                    imgWidth: 30.w,
+                                    imgurl: story.profilePic == null
+                                        ? 'https://imgv3.fotor.com/images/blog-cover-image/10-profile-picture-ideas-to-make-you-stand-out.jpg'
+                                        : 'story/${story.profilePic!}'),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              } else {
-                return shimmerLoadingListHorizontalWidget(
-                  height: 120.h,
-                  width: 100.w,
-                );
-              }
-            });
+                  );
+                } else {
+                  return shimmerLoadingListHorizontalWidget(
+                    height: 120.h,
+                    width: 100.w,
+                  );
+                }
+              });
+        }
       }),
     );
   }
 }
 
 class ViewStory extends StatelessWidget {
-  final List<Result> storyList; // Receive the story list
+  final Result storyList; // Receive the story list
   const ViewStory({super.key, required this.storyList});
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(HomeController());
+    final currentStory = storyList;
     return Scaffold(
-      body: Obx(() {
-        final currentStory = storyList[controller.currentStoryIndex.value];
-        return StoryView(
+      body: StoryView(
+    controller: controller.storyController,
+      onVerticalSwipeComplete: (Direction? direction) {
+        if (direction == Direction.right) {
+          controller.showNextUserStory(); // Move to the next user story
+          Log.e(controller.currentStoryIndex.value);
+        } else if (direction == Direction.up) {
+          controller
+              .showPreviousUserStory(); // Move to the previous user story
+          Log.e(controller.currentStoryIndex.value);
+        }
+      },
+      storyItems: currentStory.stories!.map((story) {
+        return StoryItem.inlineImage(
+          url: story.media == 'null'
+              ? 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png'
+              : GetImageUrl.url('story/${story.media}'),
           controller: controller.storyController,
-          onVerticalSwipeComplete: (Direction? direction) {
-            if (direction == Direction.right) {
-              controller.showNextUserStory(); // Move to the next user story
-              Log.e(controller.currentStoryIndex.value);
-            } else if (direction == Direction.up) {
-              controller.showPreviousUserStory(); // Move to the previous user story
-              Log.e(controller.currentStoryIndex.value);
-
-            }
-          },
-          storyItems: currentStory.stories!.map((story) {
-            return StoryItem.inlineImage(
-              url: story.media == 'null'
-                  ? 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png'
-                  : GetImageUrl.url('story/${story.media}'),
-              controller: controller.storyController,
-              caption: Text(
-                story.title!,
-                style: const TextStyle(
-                  color: Colors.white,
-                  backgroundColor: Colors.black54,
-                  fontSize: 17,
-                ),
-              ),
-            );
-          }).toList(), // Convert stories to storyItems for current user
+          caption: Text(
+            story.title!,
+            style: const TextStyle(
+              color: Colors.white,
+              backgroundColor: Colors.black54,
+              fontSize: 17,
+            ),
+          ),
         );
-      }),
+      }).toList(), // Convert stories to storyItems for current user
+    ),
     );
   }
 }

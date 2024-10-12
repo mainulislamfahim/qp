@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:qp/app/modules/Home/views/home_view.dart';
+import 'package:qp/app/modules/createStory/widget/textStory.dart';
 import 'package:qp/app/modules/createStory/widget/vSStoryDesigner.dart';
 import 'package:qp/app/routes/app_pages.dart';
 import 'package:qp/gen/assets.gen.dart';
@@ -38,7 +39,14 @@ class CreateStoryView extends GetView<CreateStoryController> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           GestureDetector(
-            onTap: () {},
+            onTap: () async {
+              // controller.storyModel = await controller.editorController.complete();
+              // if (controller.storyModel != null) {
+              //   print('Story created: ${controller.storyModel.toString()}');
+              // }
+              controller.pickAndEditImage(context);
+
+            },
             child: const CreateStoryLayout(
               colors: [
                 Color(0xff60EFFF),
@@ -50,10 +58,7 @@ class CreateStoryView extends GetView<CreateStoryController> {
           ),
           GestureDetector(
             onTap: () async {
-              String? mediaPath = await controller.prepareImage();
-              Get.to(() => VSStoryDesignerView(
-                    media: mediaPath,
-                  ));
+              controller.pickAndEditImage(context);
             },
             child: const CreateStoryLayout(
               colors: [Color(0xff40C9FF), Color(0xffE81CFF)],
