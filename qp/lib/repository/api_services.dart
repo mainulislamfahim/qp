@@ -157,10 +157,10 @@ Future<T> _handleRequest<T>(Future<Response<dynamic>> Function() request,
   try {
     final response = await request();
     // Log.i('Print Status Code');
-    Log.i(response.statusCode);
-    if(apiName == 'Posts') {
-      Log.i(response.data);
-    }
+    // Log.i(response.statusCode);
+    // if(apiName == 'Posts') {
+    //   Log.i(response.data);
+    // }
     if (response.statusCode == 200 ||
         response.statusCode == 201 ||
         response.statusCode == 422) {

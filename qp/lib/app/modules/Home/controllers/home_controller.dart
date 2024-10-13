@@ -10,8 +10,11 @@ import 'package:qp/app/model/post/post_model.dart';
 import 'package:qp/app/model/story/story_get_model.dart';
 import 'package:qp/helper/get_image_url.dart';
 import 'package:qp/helper/handleException.dart';
+import 'package:qp/helper/helper_utils.dart';
 import 'package:qp/helper/log_printer.dart';
 import 'package:qp/repository/api_services.dart';
+import 'package:qp/services/local_store_config.dart';
+import 'package:reaction_askany/models/emotions.dart';
 import 'package:story_view/controller/story_controller.dart';
 import 'package:video_player/video_player.dart';
 
@@ -19,7 +22,7 @@ class HomeController extends GetxController {
   final apiService = ApiServices();
   final post = <Post>[].obs;
   final storyList = <Result>[].obs;
-
+  late Emotions emotions = Emotions.like;
   final pages = 0.obs;
 
   final postModel = PostModel().obs;
@@ -97,14 +100,17 @@ class HomeController extends GetxController {
 
   /// Fetch Stories
   final isStoryLoading = true.obs;
+  final selfStoryList = <Result>[].obs;
+  final otherStoryList = <Result>[].obs;
   Future<void> getStory() async {
     try {
       final response = await apiService.storyGetList();
+      final userID = await HiveService.getUserID();
       isStoryLoading.value = false;
-
-      Log.d(response.results!.length);
-      if (response.status == 200) {
+      if (response.status == 200)  {
         storyList.value = response.results!;
+        selfStoryList.value =  storyList.where((story)=> userID == story.id).toList();
+        otherStoryList.value =  storyList.where((story)=> userID != story.id).toList();
       }
     } catch (e) {
       handleException(e);

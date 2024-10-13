@@ -9,6 +9,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.35"
+  align_positioned:
+    dependency: transitive
+    description:
+      name: align_positioned
+      sha256: "90899a9a21259a608402d109fde83068e375042703c9c7d2c31c936a443e55f5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.1"
+  archive:
+    dependency: transitive
+    description:
+      name: archive
+      sha256: cb6a278ef2dbb298455e1a713bda08524a175630ec643a242c399c932a0a1f7d
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.6.1"
   args:
     dependency: transitive
     description:
@@ -584,6 +600,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  image:
+    dependency: transitive
+    description:
+      name: image
+      sha256: "2237616a36c0d69aef7549ab439b833fb7f9fb9fc861af2cc9ac3eedddd69ca8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.0"
+  image_gallery_saver:
+    dependency: transitive
+    description:
+      name: image_gallery_saver
+      sha256: "0aba74216a4d9b0561510cb968015d56b701ba1bd94aace26aacdd8ae5761816"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.3"
   image_picker:
     dependency: "direct main"
     description:
@@ -752,6 +784,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.11.1"
+  matrix4_transform:
+    dependency: transitive
+    description:
+      name: matrix4_transform
+      sha256: "42c42610deecc382be2653f4a21358537401bd5b027c168a174c7c6a64959908"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
   meta:
     dependency: transitive
     description:
@@ -784,6 +824,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+  oktoast:
+    dependency: transitive
+    description:
+      name: oktoast
+      sha256: f1366c5c793ddfb8f55bc6fc3e45db43c45debf173b765fb4c5ec096cbdeb84a
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.4.0"
   package_info_plus:
     dependency: transitive
     description:
@@ -864,6 +912,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
+  perfect_freehand:
+    dependency: transitive
+    description:
+      name: perfect_freehand
+      sha256: "6ced289209b3b26dc23c8d21960ceff3d39442cebd8e12ce722c4385c63553e5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.2"
   permission_handler:
     dependency: "direct main"
     description:
@@ -920,6 +976,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.2"
+  photo_manager:
+    dependency: transitive
+    description:
+      name: photo_manager
+      sha256: "32a1ce1095aeaaa792a29f28c1f74613aa75109f21c2d4ab85be3ad9964230a4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.5.0"
   photo_view:
     dependency: transitive
     description:
@@ -960,6 +1024,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.8"
+  reaction_askany:
+    dependency: "direct main"
+    description:
+      name: reaction_askany
+      sha256: "4c3840a1fd6d8c88f00756a7d3a21d7672b700af86267d352c87ca2e7d2efc60"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   readmore:
     dependency: "direct main"
     description:
@@ -1381,6 +1453,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "14.2.5"
+  vs_media_picker:
+    dependency: transitive
+    description:
+      name: vs_media_picker
+      sha256: "878d30f56a973a924f8f714a1c4cc977075d2c73d3293c28dcec9a6931e41463"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
+  vs_story_designer:
+    dependency: "direct main"
+    description:
+      name: vs_story_designer
+      sha256: "4b0028c6373a6ce3f0502450ecbe3de6a7001c2aba6ee81bef8df10ade7e3c33"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.0"
   wakelock_plus:
     dependency: transitive
     description:

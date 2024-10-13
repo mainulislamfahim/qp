@@ -44,7 +44,7 @@ class CreateStoryView extends GetView<CreateStoryController> {
               // if (controller.storyModel != null) {
               //   print('Story created: ${controller.storyModel.toString()}');
               // }
-              controller.pickAndEditImage(context);
+              Get.to(()=> const VSStoryDesignerView());
 
             },
             child: const CreateStoryLayout(

@@ -117,7 +117,6 @@ class PostLayout extends StatelessWidget {
                 children: List.generate(
                   posts.media!.length,
                   (index) {
-                    Log.i(posts.media![index].media.toString().split('.').last);
                     String media =
                         posts.media![index].media.toString().split(".").last;
 
